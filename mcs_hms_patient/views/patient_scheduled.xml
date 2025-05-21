@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <record id="patient_cron" model="ir.cron">
+            <field name="name">Patient Name</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="doall" eval="True"/>
+            <field name="active" eval="False"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="model_hms_patient"/>
+            <field name="state">code</field>
+            <field name="code">model.button_generate_api()</field>
+        </record>
+    
+    </data>
+    
+
+</odoo>

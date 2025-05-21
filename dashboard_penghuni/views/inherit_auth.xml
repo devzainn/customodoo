@@ -1,0 +1,20 @@
+<odoo>
+    <template id="auth_signup_form" inherit_id="auth_signup.signup">
+        <xpath expr="//form/div[last()]" position="before">
+            <div class="form-group mt-3">
+                <label for="kode_rumah">Kode Rumah</label>
+                <input type="text" id="kode_rumah" name="kode_rumah" placeholder="Masukkan Kode Rumah" required="required" class="form-control"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="auth_login_form" inherit_id="auth_signup.login">
+        <xpath expr="//form/div[last()]" position="before">
+            <div class="form-group mt-3">
+                <label for="kode_rumah">Kode Rumah</label>
+                <input type="text" id="kode_rumah" name="kode_rumah" placeholder="Masukkan Kode Rumah" class="form-control"/>
+                <small class="form-text text-muted">Kode Rumah diperlukan untuk pengguna biasa.</small>
+            </div>
+        </xpath>
+    </template>
+</odoo>

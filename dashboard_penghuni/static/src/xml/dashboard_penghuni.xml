@@ -1,0 +1,86 @@
+<templates>
+    <t t-name="PenghuniDashboardTemplate">
+        <div class="container-fluid">
+            <!-- Filter Section -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label for="kodeRumahFilter">Filter by Kode Rumah:</label>
+                    <input type="text" id="kodeRumahFilter" t-model="state.kodeRumahFilter" class="form-control" placeholder="Masukkan Kode Rumah"/>
+                </div>
+                <div class="col-md-2">
+                    <label for="date-start">Start Date:</label>
+                    <input type="date" id="date-start" t-model="state.startDate" class="form-control"/>
+                </div>
+                <div class="col-md-2">
+                    <label for="date-end">End Date:</label>
+                    <input type="date" id="date-end" t-model="state.endDate" class="form-control"/>
+                </div>
+                <div class="col-md-2 mt-4">
+                    <button type="button" t-on-click="applyFilter" class="btn btn-primary">Apply Filter</button>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <canvas id="produk_pengeluaran_chart"/>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <canvas id="produk_usage_chart"/>
+                </div>
+                <div class="col-md-12 mb-4">
+                    <canvas id="payment_history_chart"/>
+                </div>
+            </div>
+
+            <!-- Data Tables Section -->
+            <div class="row">
+                <!-- Active Tagihan -->
+                <div class="col-md-6">
+                    <h5>Active Tagihan</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Layanan</th>
+                                <th>Tanggal Tagihan</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.activeTagihan" t-as="tagihan">
+                                <tr>
+                                    <td><t t-esc="tagihan.layanan_id[1]"/></td>
+                                    <td><t t-esc="tagihan.tanggal_tagihan"/></td>
+                                    <td><t t-esc="tagihan.status_pembayaran"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paid Tagihan -->
+                <div class="col-md-6">
+                    <h5>Paid Tagihan</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Layanan</th>
+                                <th>Tanggal Tagihan</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.paidTagihan" t-as="tagihan">
+                                <tr>
+                                    <td><t t-esc="tagihan.layanan_id[1]"/></td>
+                                    <td><t t-esc="tagihan.tanggal_tagihan"/></td>
+                                    <td><t t-esc="tagihan.status_pembayaran"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_custom_module_scan_website" model="ir.actions.act_url">
+        <field name="name">Custom Module Scan Form</field>
+        <field name="url">/scan_form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="custom_module_scan_root_menu"
+        name="Custom Module Scan"
+        sequence="92"/>
+
+    <menuitem
+        id="submenu_custom_module_scan"
+        name="Scan"
+        action="action_custom_module_scan_website"
+        parent="custom_module_scan_root_menu"
+        sequence="1"/>
+
+</odoo>
+

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="surat_keterangan_sehat">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <style>
+                        .judul{
+                        font-size:20px;
+                        }
+
+                        table.border-bottom {
+                        border-collapse: collapse;
+                        width: 100%;
+                        }
+
+                        table.border-bottom td {
+                        border-bottom: 3px solid;
+                        }
+
+                        .border-tb{
+                        border-bottom : 1px solid;
+                        border-top : 1px solid;
+                        padding : 5px;
+                        font-weight : bold;
+                        margin-top : 5px;
+                        }
+
+                        div.judul-header{
+                        font-size:12px;
+                        }
+                        div.judul-head{
+                        font-size:14px;
+                        text-align:center;
+                        font-weight: bold;
+                        }
+                        table.no-border{
+                        font-size:12px;
+                        width:100%;
+                        border-collapse: collapse;
+                        }
+                        .tulisan{
+                        font-family: Arial;
+                        }
+                        .isi{
+                        font-size:18px;
+                        }
+
+                    </style>
+                    <div class="tulisan">
+                      <div class="judul">
+                          <span style="font-weight:bold;">
+                              <center><u>KETERANGAN DOKTER</u></center>
+                          </span>
+                      </div>
+                      <br/>
+                      <div class="isi">
+                        <p>Yang bertanda tangan dibawah ini saya menerangkan bahwa : <br/></p>
+                          <table style="border-collapse: collapse; width: 100%;" border="0">
+                            <tbody>
+                              <tr>
+                                <td style="width:15%;"></td>
+                                <td style="width:20%">Nama</td>
+                                <td style="width:5%">:</td>
+                                <td style="width:60%;"><span t-field="doc.patient_id.name"/>
+                                    <t t-if="doc.patient_id.gender =='male'">
+                                    <span style="padding-left:10px;">(<b>L</b>/P)</span>
+                                    </t>
+                                    <t t-if="doc.patient_id.gender =='female'">
+                                    <span style="padding-left:10px;">(L/<b>P</b>)</span>
+                                    </t>
+                                </td>
+
+                              </tr>
+                              <tr>
+                                <td/>
+                                <td>Umur</td>
+                                <td>:</td>
+                                <td><span t-field="doc.patient_id.age"/></td>
+                              </tr>
+                              <tr>
+                                <td/>
+                                <td>Pekerjaan</td>
+                                <td>:</td>
+                                <td><span t-field="doc.patient_id.accupation_id.name"/></td>
+                              </tr>
+                              <tr>
+                                <td/>
+                                <td>Alamat</td>
+                                <td>:</td>
+                                <td><span t-field="doc.patient_id.street"/> <span t-field="doc.patient_id.street2"/> <span t-field="doc.patient_id.city"/></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <br/>
+                          <p style="text-align: justify;">Setelah diperiksa dalam keadaan :
+                              <t t-if="doc.keterangan_kesehatan == 'sehat'">
+                              <b>Sehat</b> / Tidak Sehat
+                              </t>
+                              <t t-if="doc.keterangan_kesehatan == 'sakit'">
+                                  Sehat/ <b>Tidak Sehat</b>
+                              </t>
+                              <br/>
+                              Surat Keterangan ini diberikan untuk : <span t-field="doc.notes"/>
+                          </p> <br/> <br/>
+                          <table style="border-collapse: collapse; width: 100%;" border="0">
+                            <tbody>
+                              <tr>
+                                <td style="width:25%;">Tinggi Badan</td>
+                                <td style="width:5%;">:</td>
+                                <td style="width:15%;"><span t-field="doc.height"/></td>
+                                <td style="width:55%;">cm</td>
+                              </tr>
+                              <tr>
+                                <td>Berat Badan</td>
+                                <td>:</td>
+                                <td><span t-field="doc.weight"/></td>
+                                <td>Kg</td>
+                              </tr>
+                              <tr>
+                                <td>Tekanan Darah</td>
+                                <td>:</td>
+                                <td><span t-field="doc.systolic_bp"/></td>
+                                <td>Mm/Hg</td>
+                              </tr>
+                              </tbody>
+                            </table>
+                            <br/>
+                            <div class="footer">
+                              <div class="tulisan isi">
+                            <table style="border-collapse: collapse; width: 100%;" border="0">
+                              <tbody>
+                                <tr>
+                                  <td style="width:60%;"/>
+                                  <td style="width:40%; font-family:Arial; font-size:18px;text-align:center;">Dokter Pemeriksa</td>
+                                </tr>
+                                <tr>
+                                  <td/>
+                                  <td>
+                                    <t t-if="doc.physician_id and doc.physician_id.signature">
+                                        <span t-field="doc.physician_id.signature" t-options="{'widget': 'image', 'class': 'img-rounded', 'style':'max-height: 100px !important'}"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/><br/>
+                                    </t>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td/>
+                                  <td style="font-family:Arial; font-size:18px; text-align:center;"><span t-field="doc.physician_id.name"/></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            </div>
+                            </div>
+                      </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+        <record id="paperformat_suke_sehat" model="report.paperformat">
+            <field name="name">Surat Keterangan Sehat</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">205</field>
+            <field name="page_width">145</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">40</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+    <record id="action_surat_keterangan_sehat" model="ir.actions.report">
+        <field name="name">Surat Keterangan Sehat</field>
+        <field name="model">hms.appointment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mcs_hms_appointment.surat_keterangan_sehat</field>
+        <field name="report_file">mcs_hms_appointment.surat_keterangan_sehat</field>
+        <field name="print_report_name">'Surat Keterangan Sehat - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="acs_hms.model_hms_appointment"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="mcs_hms_appointment.paperformat_suke_sehat"/>
+    </record>
+
+
+
+
+</odoo>

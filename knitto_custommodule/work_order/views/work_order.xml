@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- model.name tree view -->
+    <record id="sale_order_line1_view_tree" model="ir.ui.view">
+        <field name="name">sale.order.line1.view.tree</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="labdip_id" />
+                <field name="product_id" invisible="1" />
+                <field name="color_makloon_id" options="{'no_create': True, 'no_open':True}" />
+                <field name="color_no_labdip" />
+                <field name="color_no" string="Color No Strikeoff" invisible="1" />
+                <field name="product_uom_qty" sum="Total Qty" />
+                <field name="product_uom" domain="[('id', 'in', [106,77,3])]" />
+                <field name="keterangan" />
+                <!-- <field name="name" required="1"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <!-- model.name tree view  -->
+    <record id="sale_order_line2_view_tree" model="ir.ui.view">
+        <field name="name">sale.order.line2.view.tree</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="color_makloon_id" options="{'no_create': True, 'no_open':True}" />
+                <field name="color_no" string="Color No Strikeoff" invisible="1" />
+                <field name="product_id" />
+                <field name="product_uom_qty" sum="Total Qty" />
+                <field name="product_uom" />
+                <field name="keterangan" />
+                <field name="strikeoff_id" invisible="1" />
+
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="sale_order_line1_view_form" model="ir.ui.view">
+        <field name="name">sale.order.line.view1.form</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="product_id" invisible="1" />
+                        <field name="partner_id" invisible="1" />
+                        <field name="type_sc" invisible="1" />
+                        <field name="labdip_id" attrs="{'invisible':[('type_sc', '=', 'printing')]}" />
+                        <field name="color_makloon_id" options="{'no_create': True, 'no_open':True}" />
+                        <field name="color_no_labdip" attrs="{'invisible':[('type_sc', '=', 'printing')]}" />
+                        <field name="color_no" string="Color No Strikeoff" invisible="1" />
+                        <field name="color_customer_id" invisible="1" />
+                    </group>
+                    <group>
+                        <field name="product_uom_qty" default="0" />
+                        <field name="product_uom" domain="[('id', 'in', [106,77,3])]" />
+                        <field name="keterangan" />
+                        <field name="strikeoff_id" invisible="1" />
+                        <field name="qty_minimum" invisible="1" />
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- <record id="sale_order_line2_view_form" model="ir.ui.view">
+        <field name="name">sale.order.line.view2.form</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="color_strikeoff_id"/>
+                    <field name="color_no"/>
+                    <field name="product_uom_qty"/>
+                    <field name="product_uom"/>
+                    <field name="name"/>
+                    <field name="strikeoff_id" invisible="1"/>
+                </group>
+            </form>
+        </field>
+    </record> -->
+
+
+    <record id='view_work_order_form' model="ir.ui.view">
+        <field name="name">work.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="replace">
+                <form string="Work Order" create="true">
+                    <header>
+                        <field name="approved_rnd" invisible="1" />
+                        <button name="check_td" string="Check" type="object" class="btn-primary" attrs="{'invisible':[('check_states', '!=', False)]}" />
+                        <button name="open_wizard_notulen" string="Notulen" type="object" class="btn-primary" attrs="{'invisible':[('check_states', '!=', 'isi_notulen')]}" />
+                        <button name="action_approve_rnd" string="Approve Rnd" type="object" class="oe_highlight" attrs="{'invisible':[('check_states', '!=', 'approve_rnd')]}" groups="tj_mkt_order.group_approve_rnd_wo" />
+                        <button name="action_confirm_wo" string="Manager Approval" type="object" class="btn-primary" attrs="{'invisible':[('check_states', '!=', 'approve'),]}" groups="tj_mkt_order.group_mkt_manager" />
+                        <button name="action_confirm_wo" string="Confirm WO" type="object" class="btn-primary" attrs="{'invisible':[('check_states', '!=', 'ada')]}" groups="tj_mkt_order.group_confirm_wo"/>
+                        <field name="check_states" widget="statusbar" invisible="1" />
+                        <button name="action_cancel" string="Cancel" type="object" class="btn-primary" states='confirm_wo' groups="sales_team.group_sale_manager"/>
+                        <button name="update_flowproses" string="Update Flowproses" type="object" class="btn-primary" states='confirm_wo' groups="tj_mkt_order.group_update_flowproses"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft_wo,confirm_wo" default="draft_wo" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <field name="picking_ids" invisible="1" />
+                            <button type="object" name="action_view_delivery" class="oe_stat_button" icon="fa-truck" attrs="{'invisible': [('delivery_count', '=', 0)]}" groups="base.group_user">
+                                <field name="delivery_count" widget="statinfo" string="Delivery" />
+                            </button>
+                        </div>
+                        <div class="oe_title" string="Ref">
+                            <h1>
+                                <field name="name" readonly="1" class="oe_inline" context="{'is_work_order': True}" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="wo_date" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="uom_id" invisible="1" />
+                                <field name="type_wo" required="1" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="product_id" string="Product Name" required="1" options="{'no_edit': True, 'no_create': True}" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="sc_id" attrs="{'invisible':[('type_wo', '=', 'stock')], 'readonly': [('state', '=', 'confirm_wo')]}" options="{'no_edit': True, 'no_create': True}" domain="[('state', '=','confirmed'), ('date_periode', '&gt;=', wo_date), ('over_wo', '=', False)]" />
+
+                                <!-- <field name="sc_id" attrs="{'invisible':[('type_wo', '=', 'stock')], 'readonly': [('state', '=', 'confirm_wo')]}" options="{'no_edit': True, 'no_create': True}" domain="[('state', '=','confirmed'), ('date_periode', '&lt;=', wo_date), ('qty_sc', '&gt;', qty_pesanan)]" /> -->
+
+                                <field name="type" invisible="0" required="1" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="customer_code" attrs="{'invisible':[('type_wo', '=', 'stock')], 'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="states_greige" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="order_pertama" style="background:Red;" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="total_qty_product_greige" invisible="0" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="qty_available" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="qty_reserve" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="type_sc_category" readonly="1" invisible="1" />
+                                <field name="partner_id" invisible="1" domain="[('state', '=','approve')]" />
+                                <field name="sales_type" invisible="0" />
+                                <field name="strike_off_id" attrs="{'invisible':[('type', '=', 'dyeing')], 'readonly': [('state', '=', 'confirm_wo')]}" string="No Strikeoff" context="{'form_view_ref': 'tj_mkt_order.tj_strikeoff_form', 'strikeoff_with_reff': True}" />
+                                <field name="qty_minimum" invisible="1" />
+                                <field name="qty_pesanan" invisible="0" />
+                            </group>
+                            <group>
+                                <field name="process_id" options="{'no_edit': True, 'no_create': True}" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="hanger_code" domain="[('process_sc','=', process_id),('product_mkt_id','=',product_id), ('mloted','=', False), ('state','=','approve')]" context="{'with_mlot' : True}" required="1" options="{'no_edit': True, 'no_create': True}" />
+                                <field name="greige_code" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="product_variasi_id" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="design_id" attrs="{'invisible':[('type', '=', 'dyeing')], 'required':[('type','=','printing')], 'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="status_so" attrs="{'invisible':[('type', '=', 'dyeing')], 'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <label for="toleransi_grade_b" />
+                                <span>
+                                    <field name="toleransi_grade_b" attrs="{'invisible':[('sales_type', '=', 'jual')]}" class="oe_inline" />
+                                    <span>%</span>
+                                </span>
+                                <label for="toleransi_susut" />
+                                <span>
+                                    <field name="toleransi_susut" attrs="{'invisible':[('sales_type', '=', 'jual')]}" />
+                                    <span>%</span>
+                                </span>
+                                <field name="customer_payment_term" options="{'no_edit': True, 'no_create': True}" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="no_po" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="origin" string="Ref" />
+                                <field name="note" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="notulen" readonly="1" />
+                                <field name="is_notulen" invisible="1" />
+                                <field name="hanger_greige" invisible="1" />
+                                <field name="hanger_variasi" invisible="1" />
+                                <field name="is_hanger_change" invisible="0"/>
+                                <field name="is_work_order" invisible="0"/>
+                            </group>
+                            <group string="Spesifikasi">
+                                <field name="delivery_date" required="1" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <label for="lebar_finish" />
+                                <span>
+                                    <field name="lebar_finish" class="oe_inline" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                    <span>cm</span>
+                                </span>
+                                <label for="gramasi_finish" />
+                                <span>
+                                    <field name="gramasi_finish" class="oe_inline" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                    <span>gsm</span>
+                                </span>
+                                <field name="potongan_pinggir" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="is_available_stock" invisible="1" />
+                                <field name="is_after_check" invisible="1" />
+                                <field name="is_mlot" invisible="1" />
+                            </group>
+                            <group string="Inspecting &amp; Packing">
+                                <field name="grading" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="max_joint_pieces" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <label for="piece_length" />
+                                <span>
+                                    <field name="piece_length" class="oe_inline" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                    <field name="piece_length_uom" class="oe_inline" options="{'no_edit': True, 'no_create': True}" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                </span>
+                                <field name="packing" options="{'no_edit': True, 'no_create': True}" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="accessories_id" options="{'no_edit': True, 'no_create': True}" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="hang_tag_id" options="{'no_edit': True, 'no_create': True}" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="warehouse_id" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                                <field name="id" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="WO Line">
+                                <field name="order_line" context="{'tree_view_ref': 'work_order.sale_order_line1_view_tree','form_view_ref':'work_order.sale_order_line1_view_form', 'default_qty_minimum' : qty_minimum, 'is_wo' : 1, 'default_partner_id': partner_id, 'default_product_uom' : uom_id, 'type_wo' : type_wo , 'product' : product_id, 'design_id': design_id, 'default_strikeoff_id': strike_off_id }" attrs="{'readonly': [('state', '=', 'confirm_wo')]}" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_work_order_tree" model="ir.ui.view">
+        <field name="name">work.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <tree string="Work Order" create="true">
+                <field name="wo_no" invisible="1" />
+                <field name="state" invisible="1" />
+                <field name="name" />
+                <field name="origin" />
+                <field name="sc_id" />
+                <field name="wo_date" />
+                <field name="customer_code" />
+                <field name="sales_type" />
+                <field name="product_id" />
+                <field name="process_id" />
+                <field name="color_code" />
+                <field name="color_id" />
+                <field name="design_id" />
+                <!-- <field name="qty_pesanan"/>
+                <field name="uom_pesanan_id"/> -->
+                <!-- <field name="states_greige"/>
+                <field name="total_qty_product_greige"/>                 -->
+                <field name="check_states"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="outstanding_wo_view_tree" model="ir.ui.view">
+        <field name="name">outstanding.wo.view.tree</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <tree string="OutStanding" create="false">
+
+            <!-- <xpath expr="//header" position="inside">
+                <button name="toggle_all_keterangan" type="object" string="Tampilkan Semua Keterangan" class="oe_highlight"/>
+            </xpath> -->
+
+
+                <field name="order_id" string="No. WO" readonly="1" />
+                <field name="batch" string="No. Batch" readonly="1" />
+                <field name="contract_id" readonly="1" />
+                <field name="ref_wo" readonly="1" />
+                <field name="order_partner_id" readonly="1" />
+                <field name="wo_date" readonly="1"/>
+                <field name="delivery_date" readonly="1" />
+                <field name="color_makloon_id" options="{'no_create': True, 'no_open':True}" readonly="1" />
+                <field name="variasi_id" readonly="1" />
+                <field name="greige_code" readonly="1" />
+                <field name="product_uom_qty" string="Qty Order" readonly="1" />
+                <field name="product_uom" readonly="1"/>
+                <field name="qty_process" readonly="1"/>
+                <field name="qty_remaining" readonly="1"/>              
+                
+                <field name="show_keterangan" invisible="1" colspan="2"/>
+                <button name="toggle_keterangan" type="object" string="Tampilkan Keterangan"
+                    icon="fa-eye" class="oe_highlight"/>
+                <field name="keterangan" 
+                   attrs="{'invisible': [('show_keterangan', '=', False)]}" 
+                   readonly="1" 
+                   style="min-width: 0px; max-width: 200px; white-space: normal;"  colspan="2"/>
+
+                <field name="show_note" invisible="1"/>
+                <button name="toggle_note" type="object" string="Tampilkan Note"
+                    icon="fa-eye" class="oe_highlight"/>
+                <field name="ref_note"
+                    attrs="{'invisible': [('show_note', '=', False)]}" 
+                   readonly="1" 
+                   style="min-width: 0px; max-width: 200px; white-space: normal;"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="work_order_graph" model="ir.ui.view">
+        <field name="name">work.order.graph</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <graph string="Work Order Graph">
+                <field name="partner_id" />
+                <field name="amount_total" type="measure" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="work_order_pivot" model="ir.ui.view">
+        <field name="name">work_order.pivot</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <pivot string="">
+                <field name="partner_id" type="row" />
+                <field name="amount_total" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+
+    <!-- ACTION -->
+    <record id="action_work_order" model="ir.actions.act_window">
+        <field name="name">Work Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <!-- <field name="view_id" ref="view_work_order_tree" /> -->
+        <field name="context">{'is_work_order': True, 'strikeoff_with_reff':True}</field>
+        <field name="domain">[('is_work_order','=', True)]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new Work Order.
+            </p>
+            <p>
+                Use this menu to browse previous Work Order. To record new
+                Work Order, you may use the menu
+
+                <i>Your Session</i> for
+                the touchscreen interface.
+
+
+            </p>
+        </field>
+    </record>
+
+    <!-- <record model="ir.ui.menu" id="product.menu_product_uom_form_action">
+        <field name="action" ref="uom_list_action"/>
+    </record> -->
+
+    <record model="ir.actions.act_window.view" id="action_work_order_tree">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_work_order_tree" />
+        <field name="act_window_id" ref="action_work_order" />
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_work_order_form">
+        <field name="sequence" eval="2" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_work_order_form" />
+        <field name="act_window_id" ref="action_work_order" />
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_work_order_graph">
+        <field name="sequence" eval="3" />
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="work_order_graph" />
+        <field name="act_window_id" ref="action_work_order" />
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_work_order_pivot">
+        <field name="sequence" eval="4" />
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="work_order_pivot" />
+        <field name="act_window_id" ref="action_work_order" />
+    </record>
+
+    <record id="outstanding_wo_action" model="ir.actions.act_window">
+        <field name="name">Outstanding WO</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">['|',('status_permartaian', 'not in', ['done']),('status_pengiriman', 'not in', ['done']),('order_id.name','!=','New'),('order_id.is_selesai','=',False)]</field>
+        <field name="context">{'search_default_qty_bigger_zero':1}</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="outstanding_wo_action_tree">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="outstanding_wo_view_tree" />
+        <field name="act_window_id" ref="outstanding_wo_action" />
+    </record>
+
+
+    <record model="ir.ui.view" id="outstanding_work_order_search">
+        <field name="name">oustading.work.order.search</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_sales_order_line_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <filter name="qty_bigger_zero" string="Qty Sisa > 0" domain="[('qty_remaining','>', 0)]" />
+            </xpath>
+
+            <xpath expr="//filter[3]" position="after">
+                <filter string="Tanggal Wo" domain="[]" context="{'group_by': 'wo_date:day'}" />
+                <filter string="Delivery Date" domain="[]" context="{'group_by': 'delivery_date:day'}" />
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- MENU -->
+    <menuitem id="menu_parent_work_order" name="Work Order" parent="sales_team.menu_sales" sequence="100" />
+    <menuitem id="menu_work_order" name="Work Order" parent="menu_parent_work_order" action="action_work_order" groups="sales_team.group_sale_manager,sales_team.group_sale_salesman,account.group_account_manager,account.group_account_user" />
+    <menuitem id="menu_outstanding_wo" name="Outstanding WO" parent="menu_parent_work_order" action="outstanding_wo_action" sequence="50" />
+
+    <!-- action tree -->
+    <record id="action_server_refresh_status" model="ir.actions.server">
+        <field name="name">Refresh status</field>
+        <field name="condition">True</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_sale_order_line" />
+        <field name="state">code</field>
+        <field name="code">
+            for rec in records :
+            rec.get_status_permartaian()
+            rec.get_status_pengiriman()
+        </field>
+    </record>
+
+    <record id="ir_values_refresh_status" model="ir.values">
+        <field name="name">action_refresh_status</field>
+        <field name="action_id" ref="action_server_refresh_status" />
+        <field name="value" eval="'ir.actions.server,' + str(ref('action_server_refresh_status'))" />
+        <field name="key">action</field>
+        <field name="model_id" ref="model_sale_order_line" />
+        <field name="model">sale.order.line</field>
+        <field name="key2">client_action_multi</field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="sale_order_search_inherit">
+        <field name="name">sale.order.search.inherit.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="before">
+                <filter string="New" domain="[('state','=','draft')]" name="state_draft" />
+                <filter string="Confirm" domain="[('state','=','confirm_wo')]" name="state_confirm" />
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hms_physician_form_inherit_peran">
+            <field name="name">hms.physician.form.inherit.peran</field>
+            <field name="model">hms.physician</field>
+            <field name="inherit_id" ref="acs_hms_base.view_physician_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='department_ids']" position="after">
+                    <field name="peran"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_wizard_create_kp_form" model="ir.ui.view">
+            <field name="name">wizard.create.kp.form</field>
+            <field name="model">wizard.create.kp</field>
+            <field name="arch" type="xml">
+                <form string="Create Kartu Proses">
+                    <!-- <group>
+                        <field name="so_line_id" readonly="1" options="{'no_open':True}"/>
+                        <field name="lab_id" readonly="1" />
+                    </group> -->
+                    <group>
+                        <group>
+                            <field name="so_line_id" readonly="1" options="{'no_open':True}"/>
+                            <field name="mesin_id" />
+                            <field name="parent_utama" readonly="1" />
+                            <field name="urutan_partai" />
+                            <field name="durasi" />
+                            <field name="parent" readonly="1" />
+                            <!-- <field name="qty_roll_kp" />
+                            <field name="qty_kg_kp" />
+                            <field name="qty_mtr_kp" />
+                            <field name="qty_yds_kp" /> -->
+                        </group>
+                        <group>
+                            <field name="product_uom" options="{'no_create': True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="product_uom_greige" options="{'no_create': True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="type_kp" />
+                            <field name="mesin_date" />
+                            <field name="mesin_date2" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="createKp"
+                                string="Create"
+                                type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_create_kp" model="ir.actions.act_window">
+            <field name="name">Create Kartu Proses</field>
+            <field name="res_model">wizard.create.kp</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_wizard_create_kp_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- <menuitem id="menu_action_wizard_create_kp"
+                action="action_wizard_create_kp"
+                sequence="200" /> -->
+    </data>
+</odoo>

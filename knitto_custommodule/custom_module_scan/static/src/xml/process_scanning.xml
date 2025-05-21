@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="process_scanning_page" name="Process Scanning Page">
+        <t t-call="website.layout">
+            <style>
+                header, footer, nav {
+                    display: none !important;
+                }
+
+                body.o_connected_user  {
+                    padding-top: 0px !important;
+                }
+
+                .img-fluid {
+                    width: 100%;
+                }
+
+                .card-body-top ul {
+                    list-style-type: none;
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .card-body-top {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .card-body-top ul ul, .card-body-top li {
+                    list-style-type: none;
+                    width: fit-content;
+                    justify-items:center;
+                }
+
+                .card-body-top ul ul{
+                    padding: 10px;
+                    margin: 10px;
+                    color: black;
+                    background-color: none;
+                    border: solid 1px grey;
+                    width: auto;
+                    font-weight: 500;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    border-radius: 18px;
+                }
+
+                .alert {
+                    color: red;
+                    background-color: #f8d7da;
+                    border: 1px solid #f5c6cb;
+                    padding: 10px;
+                    border-radius: 5px;
+                }
+
+                .badge-success {
+                    background-color: red;
+                    color: white;
+                }
+
+                .badge-warning {
+                    background-color: green;
+                    color: white;
+                }
+
+                .badge-secondary {
+                    background-color: gray;
+                    color: white;
+                }
+
+                .col-md-12.mb-4 {
+                    background: white;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                    border-radius: 5px; 
+                    padding-left: 40px;
+                    padding-right: 40px;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                }
+
+                .col-md-6.mb-4 {
+                    margin-top: 20px
+                }
+
+                .col-md-6.mb-4.information .card {
+                    padding: 10px;
+                    background: white;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                    border-radius: 5px; 
+                }
+
+                .col-md-6.mb-4.information .card-header {
+                    padding: 10px;
+                    background-color: #283e63;
+                }
+
+                .col-md-6.mb-4.information .card-header h3 {
+                    margin: 0;
+                    text-align: center;
+                    color: white;
+                }
+
+                .col-md-6.mb-4.information .card-detail {
+                    padding: 10px
+                }
+
+                .col-md-6.mb-4.information .card-detail .wo-code p {
+                    text-align: center;
+                    margin: 0px 10px 10px 10px; 
+                    font-size: 23px;
+                }
+
+                .btn.btn-back {
+                    margin-top: 20px;
+                    background-color: darkgrey;
+                }
+
+                .container {
+                    width: 100%;
+                    padding: 0;
+                    overflow: hidden;
+                    height: 100%;
+                }
+
+                .navbar {
+                    background-color: #283e63;
+                    width: 100%;
+                    border-radius: 0;
+                    margin: 0;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center; 
+                    padding: 20px 40px 20px 40px; 
+                }
+
+                .navbar h1 {
+                    color: white;
+                    font-size: 20px;
+                    margin: 0; 
+                    order: 1; 
+                }
+
+                .navbar button {
+                    color: white;
+                    background-color: #283e63;
+                    border: none;
+                    font-size: 18px;
+                    cursor: pointer;
+                    order: 2;
+                }
+
+                .row {
+                    margin-top: 15x;
+                    padding-top: 30px;
+                    padding-bottom: 30px;
+                    padding-left: 40px;
+                    padding-right: 40px;
+                    background-color: #d3e3f3;
+                    height: 100%;
+                }
+
+                .circle {
+                    background-color: #b4bcd0;
+                    border-radius: 100%;
+                    width: fit-content;
+                    padding-right: 13px;
+                    padding-left: 13px;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+                    color: white;
+                }
+                
+                .completed {
+                    background-color: #28a745;
+                    border-radius: 100%;
+                    width: fit-content;
+                    padding-right: 13px;
+                    padding-left: 13px;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+                }
+
+                .circle-number t {
+                    color: white;
+                }
+
+                .in-progress {
+                    background-color: #ffc107; 
+                }
+
+                .not-started {
+                    background-color: #b4bcd0;
+                }
+
+                .title-proses {
+                    margin-top: 8px;
+                }
+
+                .title-proses strong { 
+                    font-size: 15px;
+                }
+
+                .process-item {
+                    position: relative;
+                    width: 100%;
+                }
+
+                .process-item:not(:last-child)::after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 100%;
+                    width: 100%;
+                    height: 2px;
+                    background-color: #ccc;  
+                    transform: translateY(-50%);
+                }
+
+                .table {
+                    margin-bottom: 0px;
+                }
+                
+                .table, .table td {
+                    border: none;
+                }
+
+                .table td {
+                    padding: 8px; 
+                    font-size: 18px;
+                }
+
+                .table td:first-child {
+                    width: 150px;
+                    font-weight: bold;
+                }
+
+                .table td:last-child {
+                    text-align: left;
+                }
+
+            
+                @media (min-width: 1698px) {
+                    .table td {
+                        font-size: 24px;
+                    }
+
+                    .col-md-6.mb-4.information .card-detail .wo-code p {
+                        font-size: 25px;
+                    }
+
+                    .title-proses strong { 
+                        font-size: 20px;
+                    }
+                }
+
+            </style>
+            <div class="container">
+                <div class="navbar">
+                        <h1>PT Kartika Aurora Tekstil</h1>
+                        <button onclick="window.location.href='/web#';">Keluar</button>
+                </div>
+                <div class="row">
+                    <t t-if="error_message">
+                        <div class="alert" role="alert">
+                            <t t-esc="error_message"/>
+                        </div>
+                    </t>
+
+                    <div class="col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-body-top">
+                                <ul class="list-unstyled">
+                                    <t t-set="index" t-value="0"/>  
+                                    <t t-foreach="proses_data" t-as="proses">
+                                        <li class="d-flex align-items-center mb-3">
+                                            <div class="circle-number d-flex justify-content-center align-items-center 
+                                                        mr-3" 
+                                                t-att-class="'circle ' + 
+                                                            (proses['status'] == 'Selesai' and 'completed' or '') + 
+                                                            (proses['status'] == 'Sedang Diproses' and 'in-progress' or '') + 
+                                                            (proses['status'] == 'Belum Dimulai' and 'not-started' or '')">
+                                                <t t-if="proses['status'] == 'Selesai'">
+                                                    ✓
+                                                </t>
+                                                <t t-if="proses['status'] != 'Selesai'">
+                                                    <t t-esc="index + 1"/>
+                                                </t>
+                                            </div>
+                                            <div class="title-proses">
+                                                <strong><t t-esc="proses['proses_name']"/></strong>
+                                            </div>
+                                        </li>
+                                        <t t-set="index" t-value="index + 1"/>
+                                    </t>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4 information">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>INFORMASI</h3>
+                            </div>
+                            <div class="card-detail">
+                                <div class="wo-code">
+                                    <p><t t-esc="kartu_proses.name"/></p>
+                                </div>
+
+                                <div>
+                                    <table class="table">
+                                        <tr>
+                                            <td><strong>Work Order</strong></td>
+                                            <td>:</td>
+                                            <td><t t-esc="kartu_proses.so_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Customer</strong></td>
+                                            <td>:</td>
+                                            <td><t t-esc="partner.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Product</strong></td>
+                                            <td>:</td>
+                                            <td><t t-esc="kartu_proses.product_mkt_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Batch Ref</strong></td>
+                                            <td>:</td>
+                                            <td><t t-esc="kartu_proses.batch_ref"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Operator</strong></td>
+                                            <td>:</td>
+                                            <td><t t-esc="employee.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Hanger Code</strong></td>
+                                            <td>:</td>
+                                            <td><t t-esc="kartu_proses.hanger_code.name"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-back" onclick="window.location.href='/scan_form';">Kembali</button>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Pilih Mesin</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <t t-if="not all_done">
+                                    <form method="POST" action="/submit_machine_selection">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="form-group">
+                                            <select name="machine_id" class="form-control" required="true">
+                                                <t t-foreach="machines" t-as="machine">
+                                                    <option t-att-value="machine.id"><t t-esc="machine.name"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+
+                                        <t t-if="employee.manager">
+                                            <div class="form-group">
+                                                <label for="manual_date">Tanggal dan Waktu (Optional for Managers)</label>
+                                                <input type="datetime-local" name="manual_date" class="form-control" t-att-required="True" />
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="form-group" t-att-hidden="True">
+                                                <label for="manual_date">Tanggal (Optional for Managers)</label>
+                                                <input type="date" name="manual_date" class="form-control" />
+                                            </div>
+                                        </t>
+
+                                        <input type="hidden" name="dropdown_proses_id" t-att-value="dropdown_proses_id"/>
+                                        <input type="hidden" name="kartu_proses_id" t-att-value="kartu_proses.id"/>
+                                        <input type="hidden" name="employee_barcode" t-att-value="employee.barcode"/>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </t>
+                                <t t-if="all_done">
+                                    <p>Semua Proses Scanning Telah Selesai Dilaksanakan</p>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    var scanSuccessful = "<t t-esc='scan_successful'/>";
+                    var errorMessage = "<t t-esc='error_message'/>";
+
+                    if (errorMessage) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: errorMessage,
+                            confirmButtonText: 'Ok'
+                        });
+                    } else if (scanSuccessful) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Scan Successful',
+                            text: 'Your scan was successful!',
+                            confirmButtonText: 'Ok'
+                        }).then(function(result) { 
+                            if (result.isConfirmed) {
+                                window.location.href = '/scan_form'; 
+                            }
+                        });
+                    }
+                });
+            </script>
+
+
+
+        </t>
+    </template>
+</odoo>
+
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="labdip_test_resep_line_inherit_form" model="ir.ui.view">
+                <field name="name">labdip_test_resep_line_inherit_form</field>
+                <field name="model">labdip.test.resep</field>
+                <field name="inherit_id" ref="tj_mkt_order.labdip_test_resep_form_view"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//form/sheet/notebook/page/field[@name='line_recipe_test_ids']/tree/field[@name='amount']" position="after">
+                        <field name="toleransi" />
+                        <field name="tahapan" options="{'no_create_edit':True}"/>
+                    </xpath>
+                </field>
+        </record>
+
+
+
+        <record id="labdip_resep_line_inherit_form" model="ir.ui.view">
+                <field name="name">labdip_resep_line_inherit_form</field>
+                <field name="model">labdip.warna</field>
+                <field name="inherit_id" ref="tj_mkt_order.tj_labdip_warna_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//form/sheet/notebook/page/field[@name='resep_ids']/tree/field[@name='product_id']" position="after">
+                        <field name="toleransi" />
+                        <field name="tahapan" string="Tahapan" options="{'no_create_edit':True}"/>
+                    </xpath>
+                </field>
+        </record>
+
+
+
+
+        <record id="color_kitchen_dyeing_line_toleransi_inherit_form" model="ir.ui.view">
+                <field name="name">color_kitchen_dyeing_line_toleransi_inherit_form</field>
+                <field name="model">color.kitchen.dyeing</field>
+                <field name="inherit_id" ref="tj_mkt_order.color_kitchen_dyeing_form"/>
+                <field name="arch" type="xml">
+                    
+                    <xpath expr="//header" position="inside">
+                        <button name="print_resep_grouping" type="object" string="Print Resep Grouping" icon="fa-print" />
+                    </xpath>
+
+                    <xpath expr="//form/sheet/notebook/page/field[@name='line_ids']/tree/field[@name='code']" position="after">
+                        <field name="toleransi_timbang" string="Toleransi" />
+                        <field name="tahapan" string="Tahapan" options="{'no_create_edit':True}"/>
+                    </xpath>
+                </field>
+        </record>
+    </data>
+</odoo>

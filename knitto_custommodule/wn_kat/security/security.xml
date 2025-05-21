@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <data>
+        <!-- <record model="ir.module.category" id="module_vendor_bill">
+         <field name="name">Vendor Bill</field>
+        </record>
+
+        <record id="vendor_bill_confirm" model="res.groups">
+            <field name="name">Vendor Bill -> Confirm </field>
+            <field name="category_id" ref="wn_account.module_vendor_bill"/>
+        </record>
+        <record id="vendor_bill_validate" model="res.groups">
+            <field name="name">Vendor Bill -> Validate</field>
+            <field name="category_id" ref="wn_account.module_vendor_bill"/>
+        </record>
+        <record id="vendor_bill_cancel" model="res.groups">
+            <field name="name">Vendor Bill -> Cancel</field>
+            <field name="category_id" ref="wn_account.module_vendor_bill"/>
+        </record>
+        <record id="vendor_bill_payment" model="res.groups">
+            <field name="name">Vendor Bill -> Payment</field>
+            <field name="category_id" ref="wn_account.module_vendor_bill"/>
+        </record>
+        <record id="vendor_bill_refund" model="res.groups">
+            <field name="name">Vendor Bill -> Refund</field>
+            <field name="category_id" ref="wn_account.module_vendor_bill"/>
+        </record>
+        <record id="vendor_bill_set_draft" model="res.groups">
+            <field name="name">Vendor Bill -> Set Draft</field>
+            <field name="category_id" ref="wn_account.module_vendor_bill"/>
+        </record> -->
+
+
+
+        <!-- <record model="ir.module.category" id="module_kontra_bon">
+            <field name="name">Kontra Bon</field>
+        </record>
+        
+        <record id="kontrabon_confirm" model="res.groups">
+            <field name="name">Kontra Bon -> Confirm </field>
+            <field name="category_id" ref="wn_account.module_kontra_bon"/>
+        </record>
+        <record id="kontrabon_approved" model="res.groups">
+            <field name="name">Kontra Bon -> Approved</field>
+            <field name="category_id" ref="wn_account.module_kontra_bon"/>
+        </record>
+        <record id="kontrabon_done" model="res.groups">
+            <field name="name">Kontra Bon -> Done</field>
+            <field name="category_id" ref="wn_account.module_kontra_bon"/>
+        </record>
+        <record id="kontrabon_batal" model="res.groups">
+            <field name="name">Kontra Bon -> Cancel</field>
+            <field name="category_id" ref="wn_account.module_kontra_bon"/>
+        </record>
+        <record id="kontrabon_set_draft" model="res.groups">
+            <field name="name">Kontra Bon -> Set Draft</field>
+            <field name="category_id" ref="wn_account.module_kontra_bon"/>
+        </record> -->
+
+        <!-- <record model="ir.module.category" id="module_sales_contract">
+            <field name="name">Sales Contract</field>
+        </record>
+        <record id="sales_kontrak_validate" model="res.groups">
+            <field name="name">Sales Contract -> Validate </field>
+            <field name="category_id" ref="wn_account.module_sales_contract"/>
+        </record>
+        <record id="sales_kontrak_approved" model="res.groups">
+            <field name="name">Sales Contract -> Approved </field>
+            <field name="category_id" ref="wn_account.module_sales_contract"/>
+        </record>
+        <record id="sales_kontrak_cancel" model="res.groups">
+            <field name="name">Sales Contract -> Cancel </field>
+            <field name="category_id" ref="wn_account.module_sales_contract"/>
+        </record>
+        <record id="sales_kontrak_set_draft" model="res.groups">
+            <field name="name">Sales Contract -> Set Draft </field>
+            <field name="category_id" ref="wn_account.module_sales_contract"/>
+        </record> -->
+
+        <!-- <record model="ir.module.category" id="module_budget">
+         <field name="name">Budget</field>
+        </record>
+        <record id="budget_confirm" model="res.groups">
+            <field name="name">Budget -> Confirm</field>
+            <field name="category_id" ref="wn_account.module_budget"/>
+        </record>
+        <record id="budget_approve" model="res.groups">
+            <field name="name">Budget -> Approve</field>
+            <field name="category_id" ref="wn_account.module_budget"/>
+        </record>
+        <record id="budget_done" model="res.groups">
+            <field name="name">Budget -> Done</field>
+            <field name="category_id" ref="wn_account.module_budget"/>
+        </record>
+        <record id="budget_reset" model="res.groups">
+            <field name="name">Budget -> Reset</field>
+            <field name="category_id" ref="wn_account.module_budget"/>
+        </record>
+        <record id="budget_cancel" model="res.groups">
+            <field name="name">Budget -> Cancel</field>
+            <field name="category_id" ref="wn_account.module_budget"/>
+        </record> -->
+
+    </data>
+</odoo>

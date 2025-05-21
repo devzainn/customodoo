@@ -1,0 +1,539 @@
+<odoo>
+    <data>
+
+        <template id="color_kitchen_dyeing_document_group">
+            <!-- <t t-call="report.external_layout"> -->
+            <t t-set="o" t-value="o.with_context({})" />
+            <div class="page">
+                <style type="text/css">
+                    /* Arvo */
+                    @font-face {
+                        font-family: 'Courier New';
+                        font-style: normal;
+                        font-weight: 400;
+                        src: local('Courier New'), local('CourierNewPSMT'), url(http://themes.googleusercontent.com/licensed/font?kit=p0pJArTTK5Heq6xbYtNwnp0EAVxt0G0biEntp43Qt6E) format('truetype');
+                    }
+
+                    .table-condensed &gt;
+                    tr &gt;
+                    td &gt;
+
+                    span {
+                        font-family: Courier New;
+                        font-size: 20px;
+                    }
+
+                    .table-condensed &gt;
+                    thead &gt;
+                    tr &gt;
+                    td &gt;
+
+                    span {
+                        font-family: Courier New;
+                        font-size: 20px;
+                    }
+
+                    .table-condensed &gt;
+                    tbody &gt;
+                    tr &gt;
+                    td &gt;
+
+                    span {
+                        font-family: Courier New;
+                        font-size: 20px;
+                    }
+
+                    span-kanan {
+                        font-family: Courier New;
+                        font-size: 20px;
+                        float:right;
+                    }
+
+                    span-kiri {
+                        font-family: Courier New;
+                        font-size: 20px;
+                        float:left;
+                    }
+
+                    span-tengah {
+                        font-family: Courier New;
+                        font-size: 20px;
+                        float:center;
+                    }
+
+
+
+                </style>
+                <table class="table-condensed" style="font-weight: bold" width="100%">
+                    <tr>
+                        <td width="25%">
+                            <!-- <t t-foreach="o.proses_line_ids" t-as="line">
+                                <span t-field="line.proses_id.name" />
+                            </t> -->
+                        </td>
+                        <td width="40%" style="border-bottom : 1px solid black" class="text-center">
+                            <span>COLOURING RECIPE</span>
+                        </td>
+                        <td width="30%" class="text-center">
+                            <span>CELUP</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%" />
+                        <td width="40%" class="text-center">
+                            <span>NO. :</span>
+                            <span t-field="o.name" />
+                        </td>
+                        <td width="30%" class="text-center">
+                            <span t-field="o.no_map" />
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table-condensed" width="100%">
+                    <tr>
+                        <td>
+                            <span>NO. WO</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.no_wo.name" />
+                        </td>
+                        <td>
+                            <span>TANGGAL</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.tanggal_resep" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span t-if="o.wo_ref">WO. Ref</span></td>
+                        <td><span t-if="o.wo_ref">:<span><span t-field="o.wo_ref" /></span></span></td>
+                        <td><span t-if="o.batch_ref">Batch Ref</span></td>
+                        <td><span t-if="o.batch_ref">:<span><span t-field="o.batch_ref" /></span></span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>CUSTOMER</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.partner_id.ref" />
+                        </td>
+                        <td>
+                            <span>JENIS</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.jenis" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>CORAK</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.product_id.name" />
+                        </td>
+                        <td>
+                            <span>QTY</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-esc="'{0:,.2f}'.format(float(o.qty_kain))" />
+                            <span>Kg</span> 
+                            / 
+                            <span t-esc="'{0:,.2f}'.format(float(o.qty_kain_yds))" />
+                            <span>Yard</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>WARNA</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.warna_id.name" />
+                        </td>
+                        <td>
+                            <span>QTY AIR (L)</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-esc="'{0:,.2f}'.format(float(o.qty_liter))" />
+                            <span>/ (LR) :</span>
+                            <span t-esc="'{0:,.2f}'.format(float(o.lr))" />                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>NO. WARNA</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.no_warna.name" />
+                        </td>
+                        <td>
+                            <span>NO. BATCH</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.no_batch" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>LABDIP</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.labdip_id.name" />
+                        </td>
+                        <td>
+                            <span>NO. MESIN</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.mesin_id.name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>LEBAR/GRM</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.lebar" />
+                            <span>/</span>
+                            <span t-field="o.gramasi" />
+                        </td>
+                        <td>
+                            <span>PO NO.</span>
+                        </td>
+                        <td>
+                            <span>:</span>
+                            <span t-field="o.no_po" />
+                        </td>
+                    </tr>
+                </table>
+
+
+                <table style="margin-top : 5px ;" class="table-condensed" width="100%">
+                    <thead>
+                        <tr>
+                            <td style="border-top : 1px solid black ; border-bottom : 1px solid black"
+                                class="text-center"><span>KODE</span></td>
+                            <td style="border-top : 1px solid black ; border-bottom : 1px solid black"
+                                class="text-center"><span>NAMA CHEMICAL</span></td>
+                            <td style="border-top : 1px solid black ; border-bottom : 1px solid black"
+                                class="text-center"><span>CONC</span></td>
+                            <td style="border-top : 1px solid black ; border-bottom : 1px solid black"
+                                class="text-center">
+                                <span>UNIT</span>
+                            </td>
+                            <td style="border-top : 1px solid black ; border-bottom : 1px solid black"
+                                class="text-center"><span>QTY</span></td>
+                            <td style="border-top : 1px solid black ; border-bottom : 1px solid black"
+                                class="text-center"><span>SAT</span></td>
+                            <td style="border-top : 1px solid black ; border-bottom : 1px solid black"
+                                class="text-center"><span>PH</span></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="o.proses_line_ids.sorted(key=lambda r: r.no_urut, reverse=False)" t-as="line">
+                            <tr>                                
+                                <td style="padding-top : 1px" colspan="7">
+                                    <span>PROSES</span>
+                                    <span>:</span>
+                                    <span t-field="line.proses_id.name" />
+     
+                                    <tr>
+                                    <td style="padding-top : 1px" colspan="7">
+                                    
+                                    <t t-set="product_group" t-value="[]"/>
+                                    <t t-foreach="line.kitchen_line_ids.sorted(key=lambda r: r.tahapan.code, reverse=False)" t-as="kitchen1">
+                                        <t t-set="product_group" t-value="product_group+[kitchen1.tahapan.code]"/>
+                                    </t>
+
+                                    <!-- CARA 1 -->
+                                    <!-- <t t-foreach="list(set(product_group))" t-as="grouping">       
+                                        <span t-esc="grouping.name"/>
+                                        <t t-set="no" t-value="0" />
+                                        <t t-foreach="line.kitchen_line_ids" t-as="kitchen2">
+                                            <t t-if="grouping==kitchen2.tahapan">
+
+                                            <t t-set="no" t-value="no + 1" />
+                                                <table class="table-condensed" width="100%">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%">
+                                                                <span-kiri t-esc="no" />
+                                                                <span-kiri t-field="kitchen2.code" />
+                                                            </td>
+
+                                                            <td class="text-left" width="40%">
+                                                                <span-kiri t-field="kitchen2.product_id" />
+                                                            </td>
+
+                                                            <td class="text-left" width="10%">
+                                                                <span-kanan t-esc="'{0:,.4f}'.format(float(kitchen2.conc))" />
+                                                            </td>
+
+                                                            <td class="text-left" width="10%">
+                                                                <span-kanan t-field="kitchen2.category_uom" />
+                                                            </td>
+                                                            
+                                                            <td class="text-left" width="15%">
+                                                                <span-kanan t-esc="'{0:,.2f}'.format(float(kitchen2.qty))" />
+                                                            </td>
+                                                            
+                                                            <td class="text-left" width="5%">
+                                                                <span-kanan t-field="kitchen2.sat_id" />
+                                                            </td>
+
+                                                            <td class="text-left" width="10%">
+                                                               
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                                                             
+                                            </t>
+                                        </t>
+                                    </t> -->
+
+
+
+                                    <!-- CARA 2 -->
+                                    <t t-foreach="list(set(product_group))" t-as="grouping">  
+                                        <t t-if="grouping == '#01'">
+                                            <span>&#160;TAHAP 1</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#02'">
+                                            <span>&#160;TAHAP 2</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#03'">
+                                            <span>&#160;TAHAP 3</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#04'">
+                                            <span>&#160;TAHAP 4</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#05'">
+                                           <span>&#160;TAHAP 5</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#06'">
+                                           <span>&#160;TAHAP 6</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#07'">
+                                           <span>&#160;TAHAP 7</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#08'">
+                                           <span>&#160;TAHAP 8</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#09'">
+                                           <span>&#160;TAHAP 9</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#10'">
+                                           <span>&#160;TAHAP 10</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#11'">
+                                           <span>&#160;TAHAP 11</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#12'">
+                                           <span>&#160;TAHAP 12</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#13'">
+                                           <span>&#160;TAHAP 13</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#14'">
+                                           <span>&#160;TAHAP 14</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#15'">
+                                           <span>&#160;TAHAP 15</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#16'">
+                                           <span>&#160;TAHAP 16</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#17'">
+                                           <span>&#160;TAHAP 17</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#18'">
+                                           <span>&#160;TAHAP 18</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#19'">
+                                           <span>&#160;TAHAP 19</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#20'">
+                                           <span>&#160;TAHAP 20</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#21'">
+                                           <span>&#160;TAHAP 21</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#22'">
+                                           <span>&#160;TAHAP 22</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#23'">
+                                           <span>&#160;TAHAP 23</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#24'">
+                                           <span>&#160;TAHAP 24</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#25'">
+                                           <span>&#160;TAHAP 25</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#26'">
+                                           <span>&#160;TAHAP 26</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#27'">
+                                           <span>&#160;TAHAP 27</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#28'">
+                                           <span>&#160;TAHAP 28</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#29'">
+                                           <span>&#160;TAHAP 29</span>
+                                        </t>
+
+                                        <t t-if="grouping == '#30'">
+                                           <span>&#160;TAHAP 30</span>
+                                        </t>
+
+
+                                        <t t-set="no" t-value="0" />
+                                        <t t-foreach="line.kitchen_line_ids" t-as="kitchen2">
+                                            <t t-if="grouping==kitchen2.tahapan.code">
+
+                                            <t t-set="no" t-value="no + 1" />
+                                                <table class="table-condensed" width="100%">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="1%" />
+
+                                                            <td width="10%">
+                                                                <span-kiri t-esc="no" />
+                                                                <span-kiri t-field="kitchen2.code" />
+                                                            </td>
+
+                                                            <td class="text-left" width="40%">
+                                                                <span-kiri t-field="kitchen2.product_id" />
+                                                            </td>
+
+                                                            <td class="text-left" width="10%">
+                                                                <span-kanan t-esc="'{0:,.4f}'.format(float(kitchen2.conc))" />
+                                                            </td>
+
+                                                            <td class="text-left" width="10%">
+                                                                <span-kanan t-field="kitchen2.category_uom" />
+                                                            </td>
+                                                            
+                                                            <td class="text-left" width="15%">
+                                                                <span-kanan t-esc="'{0:,.2f}'.format(float(kitchen2.qty))" />
+                                                            </td>
+                                                            
+                                                            <td class="text-left" width="5%">
+                                                                <span-kanan t-field="kitchen2.sat_id" />
+                                                            </td>
+
+                                                            <td class="text-left" width="10%">
+                                                               
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                                                             
+                                            </t>
+                                        </t>
+                                        </t>
+
+                                    </td>
+                                </tr>
+                                </td>
+                            </tr>
+                        </t> 
+                    </tbody>
+                </table>
+                <table style="margin-top : 20px" class="table-condensed" width="100%">
+                    <tr class="text-center">
+                        <td>
+                            <span>Mengetahui :</span>
+                            <br />
+                            <br />
+                            <br />
+                            __________________
+                        </td>
+                        <td>
+                            <span>Timbang Obat :</span>
+                            <br />
+                            <br />
+                            <br />
+                            __________________
+                        </td>
+                        <td>
+                            <span>Laborat :</span>
+                            <br />
+                            <br />
+                            <br />
+                            __________________
+                        </td>
+                        <td>
+                            <span>Dibuat Oleh :</span>
+                            <br />
+                            <br />
+                            <br />
+                            __________________
+                            <!--<span t-field="o.user_id"/>-->
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- </t> -->
+        </template>
+
+
+
+
+        <template id="color_kitchen_dyeing_template_group">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="wn_orgatex.color_kitchen_dyeing_document_group" />
+                </t>
+            </t>
+        </template>
+
+
+        <report string="Print Color Kitchen Dyeing Grouping" id="action_report_color_kitchen_dyeing_group" model="color.kitchen.dyeing"
+            report_type="qweb-pdf" name="wn_orgatex.color_kitchen_dyeing_template_group"
+            file="wn_orgatex.color_kitchen_dyeing_template_group" />
+
+    </data>
+</odoo>

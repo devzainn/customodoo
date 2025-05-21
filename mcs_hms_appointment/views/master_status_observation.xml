@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+    
+        <!-- Master Appoinment -->
+    <record id="master_status_observation_satu" model="master.status.observation">
+        <field name="lvl">0</field>
+        <field name="observation_status">Registered</field>
+        <field name="keterangan">Data observasi sudah di registrasi, namun belum ada hasil observasi yang tersedia</field>
+    </record>
+
+    <record id="master_status_observation_dua" model="master.status.observation">
+        <field name="lvl">0</field>
+        <field name="observation_status">Preliminary</field>
+        <field name="keterangan">Hasil observasi awal atau sementara; data mungkin tidak lengkap atau belum diverifikasi</field>
+    </record>
+
+    <record id="master_status_observation_tiga" model="master.status.observation">
+        <field name="lvl">0</field>
+        <field name="observation_status">Final</field>
+        <field name="keterangan">Hasil observasi sudah selesai dan tidak memerlukan tindakan lebih lanjut</field>
+    </record>
+
+    <record id="master_status_observation_empat" model="master.status.observation">
+        <field name="lvl">0</field>
+        <field name="observation_status">Amended</field>
+        <field name="keterangan">Setelah status “final”, hasil observasi diubah untuk memperbarui, menambahkan informasi, dan koreksi hasil pemeriksaan</field>
+    </record>
+
+    <record id="master_status_observation_lima" model="master.status.observation">
+        <field name="lvl">1</field>
+        <field name="observation_status">Corrected</field>
+        <field name="keterangan">Setelah status “final”, hasil observasi dimodifikasi untuk membenarkan error/kesalahan dari hasil pemeriksaan</field>
+    </record>
+
+    <record id="master_status_observation_enam" model="master.status.observation">
+        <field name="lvl">0</field>
+        <field name="observation_status">Cancelled</field>
+        <field name="keterangan">Hasil observasi tidak tersedia karena pemeriksaan dibatalkan</field>
+    </record>
+
+    <record id="master_status_observation_tujuh" model="master.status.observation">
+        <field name="lvl">0</field>
+        <field name="observation_status">Entered-in-error</field>
+        <field name="keterangan">Hasil observasi ditarik setelah dirilis “final” sebelumnya. Status ini seharusnya tidak boleh ada. Dalam kasus nyata, bila hasil observasi ditarik, status sebaiknya diisi dengan “cancelled” dibandingkan “entered-in error” </field>
+    </record>
+
+    <record id="master_status_observation_delapan" model="master.status.observation">
+        <field name="lvl">0</field>
+        <field name="observation_status">Unknown</field>
+        <field name="keterangan">Unknown, Sistem tidak mengetahui status dari data observasi</field>
+    </record>
+    
+    </data>
+    
+
+</odoo>

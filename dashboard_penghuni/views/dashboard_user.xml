@@ -1,0 +1,101 @@
+<odoo>
+    <template id="homepage_dashboard" inherit_id="website.homepage">
+        <xpath expr="//div[@id='wrap']" position="inside">
+            <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script type="text/javascript"  src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+            <!-- <script type="javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script type="text/javascript" src="/dashboard_penghuni/static/src/js/new.js"></script> -->
+            <t t-if="request.env.user.id and request.env.user.has_group('base.group_user')">
+                <div class="container mt-5">
+                    <h2>Dashboard Penghuni</h2>
+                    <p>Selamat datang, <strong t-esc="request.env.user.partner_id.name"/></p>
+
+                    <div class="row mt-5">
+                        <div class="col-md-6">
+                            <h3>Pengeluaran per Produk</h3>
+                            <t t-if="produk_pengeluaran">
+                                <canvas id="pengeluaranPieChart" data-produk-pengeluaran='{"Keamanan": 50000.0, "Listrik": 250000.0}'></canvas>
+                                <canvas id="myChart"></canvas>
+                            </t>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h3>Jumlah Penggunaan per Produk</h3>
+                            <t t-if="produk_usage">
+                                <canvas id="produkHistogram" t-att-data-produk-usage="produk_usage"></canvas>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- Tabel Tagihan Aktif -->
+                    <div class="row mt-5">
+                        <!-- <div class="col-md-6">
+                            <h3>Tagihan Aktif</h3>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Produk</th>
+                                        <th>Tanggal Tagihan</th>
+                                        <th>Status Pembayaran</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="active_tagihan" t-as="tagihan">
+                                        <td t-esc="tagihan['produk']"/>
+                                        <td t-esc="tagihan['tanggal_tagihan']"/>
+                                        <td t-esc="tagihan['status_pembayaran']"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
+
+                        <!-- Tabel Tagihan yang Dibayar -->
+                        <!-- <div class="col-md-6">
+                            <h3>Tagihan Dibayar</h3>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Produk</th>
+                                        <th>Tanggal Tagihan</th>
+                                        <th>Status Pembayaran</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="paid_tagihan" t-as="tagihan">
+                                        <td t-esc="tagihan.layanan_id.name"/>
+                                        <td t-esc="tagihan.tanggal_tagihan"/>
+                                        <td t-esc="tagihan.status_pembayaran"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
+                    </div>
+
+                    <!-- Riwayat Pembayaran -->
+                    <!-- <div class="row mt-5">
+                        <div class="col-md-12">
+                            <h3>Riwayat Pembayaran</h3>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal Pembayaran</th>
+                                        <th>Jumlah</th>
+                                        <th>Produk</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="payment_history" t-as="payment">
+                                        <td t-esc="payment.tanggal"/>
+                                        <td t-esc="payment.jumlah"/>
+                                        <td t-esc="payment.produk"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

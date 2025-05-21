@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_dashboard_penghuni_form" model="ir.ui.view">
+        <field name="name">dashboard.penghuni.form</field>
+        <field name="model">dashboard.penghuni</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="kode_rumah" />
+                        <field name="layanan_id"/>
+                        <field name="invoice_id" readonly="1"/>
+                        <field name="status_pembayaran" readonly="1"/>
+                        <field name="tanggal_tagihan" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tagihan_tree_view" model="ir.ui.view">
+        <field name="name">tagihan.view.tree</field>
+        <field name="model">dashboard.penghuni</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="partner_id" />
+                <field name="invoice_id" />
+                <field name="layanan_id" />
+                <field name="status_pembayaran" />
+                <field name="tanggal_tagihan" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_dashboard" model="ir.actions.act_window">
+        <field name="name">Data Penghuni</field>
+        <field name="res_model">dashboard.penghuni</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_dashboard_penghuni" model="ir.actions.client">
+        <field name="name">Dashboard Penghuni</field>
+        <field name="tag">dashboard_penghuni</field>
+    </record>
+
+    <menuitem id="menu_dashboard" name="Tagihan Penghuni" sequence="10" action="action_dashboard" />
+
+    <menuitem
+        id="menu_dashboard_penghuni"
+        name="Dashboard Penghuni"
+        parent="dashboard_penghuni.menu_dashboard"
+        action="action_dashboard_penghuni"
+        sequence="30"/>
+
+</odoo>

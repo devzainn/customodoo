@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="color_kitchen_dyeing_form">
+            <field name="name">color.kitchen.dyeing.form</field>
+            <field name="model">color.kitchen.dyeing</field>
+            <field name="inherit_id" ref="tj_mkt_order.color_kitchen_dyeing_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='no_wo']" position="after">
+                    <field name="wo_ref" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='customer_code']" position="after">
+                    <field name="batch_ref" readonly="1" />
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="color_kitchen_dyeing_tree">
+            <field name="name">color.kitchen.dyeing.tree</field>
+            <field name="model">color.kitchen.dyeing</field>
+            <field name="inherit_id" ref="tj_mkt_order.color_kitchen_dyeing_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="batch_ref" />
+                    <field name="wo_ref" />
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="color_kitchen_dyeing_search">
+            <field name="name">color.kitchen.dyeing.tree</field>
+            <field name="model">color.kitchen.dyeing</field>
+            <field name="inherit_id" ref="tj_mkt_order.color_kitchen_dyeing_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="batch_ref" />
+                    <field name="wo_ref" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

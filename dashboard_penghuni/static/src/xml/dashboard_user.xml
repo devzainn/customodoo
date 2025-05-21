@@ -1,0 +1,12 @@
+<templates>
+<t t-name="dashboard_penghuni.static_template">
+    <div class="row mt-5">
+        <div class="col-6">
+            <canvas id="pengeluaranChart"></canvas>
+        </div>
+        <div class="col-6">
+            <canvas id="penggunaanChart"></canvas>
+        </div>
+    </div>
+</t>
+</templates>

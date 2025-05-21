@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_confirm_work_order" model="ir.ui.view">
+            <field name="name">view.confirm.work.order</field>
+            <field name="model">wizard.cofirm.work.order</field>
+            <field name="arch" type="xml">
+                <form string="Konfirmasi Work Order">
+                    <p class="oe_grey">
+                        Apakah Anda yakin untuk konfirmasi work order yang Anda pilih ?
+                        
+                    </p>
+                    <footer>
+                        <button 
+                            string="Confirm" 
+                            name="proccess_confirm" 
+                            type="object" 
+                            context="{'is_work_order' : True}"
+                            class="oe_highlight"
+                        />
+                        or
+                        <button 
+                            string="Cancel" 
+                            class="oe_link" 
+                            special="cancel"
+                        />
+                    </footer>                    
+                </form>
+            </field>
+        </record>
+
+        <record id="action_server_confirm_work_order" model="ir.actions.act_window">
+            <field name="name">Confirm</field>
+            <field name="res_model">wizard.cofirm.work.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_confirm_work_order"/>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="action_confirm_work_order_values">
+            <field name="name">Confirm</field>
+            <field name="key2">client_action_multi</field>
+            <field 
+                name="value" 
+                eval="'ir.actions.act_window,' +str(ref('action_server_confirm_work_order'))" />
+            <field name="model">sale.order</field>
+        </record>
+
+
+
+    </data>
+</odoo>

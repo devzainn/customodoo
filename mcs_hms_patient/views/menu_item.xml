@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <data>
+        <menuitem 
+            id="master_data_religion_menu"
+            parent="acs_hms_base.menu_hms_patient_cofig" 
+            name="Master Data Religion"
+            sequence="20"
+            action="master_religion_action"
+            />
+        <menuitem 
+            id="master_data_patient_job_menu"
+            parent="acs_hms_base.menu_hms_patient_cofig" 
+            name="Master Data Patient Job"
+            sequence="20"
+            action="master_patient_job_action"
+            />
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+    
+        <record id="master_data_satu" model="master.data">
+            <field name="observation_code">8480-6</field>
+            <field name="observation_display_name">Systolic blood pressure</field>
+            <field name="keterangan">Tekanan darah sistole</field>
+        </record>
+
+        <record id="master_data_dua" model="master.data">
+            <field name="observation_code">8462-4</field>
+            <field name="observation_display_name">Diastolic blood pressure</field>
+            <field name="keterangan">Tekanan darah diastole</field>
+        </record>
+
+        <record id="master_data_tiga" model="master.data">
+            <field name="observation_code">8867-4</field>
+            <field name="observation_display_name">Heart rate</field>
+            <field name="keterangan">Denyut nadi</field>
+        </record>
+
+        <record id="master_data_empat" model="master.data">
+            <field name="observation_code">8310-5</field>
+            <field name="observation_display_name">Body temperature</field>
+            <field name="keterangan">Suhu Tubuh</field>
+        </record>
+
+        <record id="master_data_lima" model="master.data">
+            <field name="observation_code">9279-1</field>
+            <field name="observation_display_name">Respiratory Rate</field>
+            <field name="keterangan">Pernapasan</field>
+        </record>
+    
+    </data>
+    
+
+</odoo>

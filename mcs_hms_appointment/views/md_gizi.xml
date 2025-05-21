@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="mcs_rs_diagnosa_gizi_view_tree" model="ir.ui.view">
+            <field name="name">master.diagnosa_gizi.view.tree</field>
+            <field name="model">master.diagnosa_gizi</field>
+            <field name="arch" type="xml">
+                <tree string="Diagnosa Gizi" editable="bottom">
+                    <field name="kode" />
+                    <field name="name" />
+                    <field name="deskripsi" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="mcs_rs_diagnosa_gizi_action" model="ir.actions.act_window">
+            <field name="name">Diagnosa Gizi</field>
+            <field name="res_model">master.diagnosa_gizi</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <h1>Kosong</h1>
+            </field>
+        </record>
+
+        <menuitem id="mcs_rs_diagnosa_gizi_menu" name="Mcs Diagnosa Gizi" sequence="10" parent="mcs_hms_appointment.master_appointment_menu" action="mcs_rs_diagnosa_gizi_action"/>
+
+    </data>
+
+</odoo>

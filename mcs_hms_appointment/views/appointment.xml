@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Field Baru -->
+    <data>
+        <record id="acs_hms_inherit_appointment" model="ir.ui.view">
+            <field name="name">hms.appointment.view.form.inherit</field>
+            <field name="model">hms.appointment</field>
+            <field name="inherit_id" ref="acs_hms.view_hms_appointment_form"/>
+            <field name="arch" type="xml">
+
+
+                <!-- <xpath expr="//field[@name='tipe_registrasi']" position="after">
+                    <field name="rujukan" attrs="{'invisible': [('tipe_registrasi','!=','bpjs')]}"/>
+                    <field name="detail_rujukan" attrs="{'invisible': [('tipe_registrasi','!=','bpjs')]}"/>
+                </xpath> -->
+
+                <xpath expr="//field[@name='consumable_line_ids']//field[@name='price_unit']" position="attributes">
+                    <attribute name="force_save">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='patient_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='urgency']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='purpose_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='cabin_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('tipe_registrasi', 'not in', ['ranap', 'rajal'])]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='age']" position="before">
+                    <field name="gender" invisible="1"/>
+                    <field name="is_hamil" attrs="{'invisible':[('gender','!=','female')]}"/>
+                    <field name="no_rm" readonly="1" force_save="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='age']" position="after">
+                    <field name="tipe_registrasi" attrs="{'readonly':[('state','!=','draft')]}" required="1"/>
+                </xpath>
+
+
+                <xpath expr="//field[@name='department_id']" position="attributes">
+                    <attribute name="groups">base.group_user</attribute>
+                    <attribute name="attrs">{'required' : [('tipe_registrasi', '!=', 'igd')],'readonly':[('state','!=','draft')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='physician_id']" position="attributes">
+                    <attribute name="required">0</attribute>
+                    <attribute name="attrs">{'required' : [('tipe_registrasi', '!=', 'igd')],'readonly':[('state','!=','draft')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_to']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='planned_duration']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="satusehat" invisible="1" string="Satu Sehat Integration">
+                        <group>
+                            <field name="pemeriksaan_penunjang" />
+                            <field name="obat_obatan_id" />
+                            <field name="bentuk" />
+                            <field name="jumlah_obat" />
+                            <field name="metode" />
+                            <field name="dosis_obat_yang_diberikan" />
+                            <field name="unit" />
+                            <field name="frekuensi" />
+                            <field name="aturan_tambahan" />
+                            <field name="diet" />
+                            <field name="keadaan_umum" />
+                        </group>
+                        <group>
+                            <field name="pasien_id" invisible="1" />
+                            <field name="encounter_status" />
+                            <field name="master_appointment_id" />
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='chief_complain']" position="after">
+                    <separator string="Objective" />
+                    <field name="objective" placeholder="Objective..."/>
+                    <separator string="Planning"/>
+                    <field name="planning" placeholder="Planning..." />
+                </xpath>
+                <xpath expr="//page[@name='info']" position="attributes">
+                    <attribute name="string">Assessment Physician</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='advice']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('tipe_registrasi', 'not in', ['rajal'])]}</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='info']" position="before">
+                    <page name="info_nurse" string="Assessment Nurse">
+                        <group>
+                            <group>
+                                <field name="outside_appointment_nurse" string="Outside Appointment" modifiers="{'readonly': [['state', 'in', ['cancel', 'done']]]}" attrs="{'required': [('state','=','nurse')]}"/>
+                                <field name="location_nurse" string="Appointment Location" widget="url" attrs="{'invisible': [('outside_appointment_nurse','=',False)]}" modifiers="{'invisible': [['outside_appointment_nurse', '=', false]], 'readonly': [['state', 'in', ['cancel', 'done']]]}"/>
+                            </group>
+                        </group>
+                        <separator string="Chief Complaints"/>
+                        <field name="chief_complain_nurse" placeholder="Chief Complaints..." modifiers="{'readonly': [['state', 'in', ['cancel', 'done']]]}"/>
+                        <separator string="Objektif"/>
+                        <field name="objective_nurse" placeholder="Objektif..." modifiers="{}"/>
+                        <separator string="Assessment Nurse"/>
+                        <field name="master_data_id" placeholder="Assessment Nurse..." widget="many2many_tags" invisible="0"/>
+                        <!-- <field name="master_data_ids" placeholder="Assessment Nurse..." widget="many2many_tags" invisible="1"/> -->
+                        <separator string="Perencanaan"/>
+                        <field name="planning_nurse" placeholder="Perencanaan..." modifiers="{}"/>
+
+                        <separator string="History of Present Illness"/>
+                        <field name="present_illness_nurse" placeholder="History of Present Illness..." modifiers="{'readonly': [['state', 'in', ['cancel', 'done']]]}"/>
+                        <separator string="Past History"/>
+                        <field name="past_history_nurse" placeholder="Past History..." modifiers="{'readonly': [['state', 'in', ['cancel', 'done']]]}"/>
+
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='info']/group/group[1]" position="inside">
+                    <button string="Duplicate from Assessment Nurse" name="dupp_asses_doc" type="object" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="cara_pulang"/>
+                </xpath>
+
+                <xpath expr="//page[@name='info_nurse']" position="before">
+                    <xpath expr="//page[@name='clinical_ass']" position="move"/>
+                </xpath>
+
+                <xpath expr="//page[@name='clinical_ass']/group[1]/group[1]" position="replace">
+                    <group>
+                        <label for="weight"/>
+                        <div class="o_row">
+                            <field name="weight"/>
+                            <field name="acs_weight_name"/>
+                            <!--<span><field name="acs_weight_name"/></span>-->
+                        </div>
+                        <label for="height"/>
+                        <div class="o_row">
+                            <field name="height"/>
+                            <field name="acs_height_name"/>
+                            <!--<span><field name="acs_height_name"/></span>-->
+                        </div>
+                        <label for="temp"/>
+                        <div class="o_row">
+                            <field name="temp"/>
+                            <field name="acs_temp_name"/>
+                            <!--<span><field name="acs_temp_name"/></span>-->
+                        </div>
+                        <field name="hr"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//page[@name='clinical_ass']/group[1]/group[2]" position="replace">
+                    <group>
+                        <field name="keterangan_kesehatan"/>
+                        <field name="rr"/>
+                        <label string="Systolic/Diastolic BP" for="systolic_bp"/>
+                        <div name="systolic_bp">
+                            <div class="oe_inline" style="display: inline;">
+                                <field name="systolic_bp" class="oe_inline"/>
+                                <field name="diastolic_bp" class="oe_inline"/>
+                            </div>
+                        </div>
+                        <label for="spo2"/>
+                        <div class="o_row">
+                            <field name="spo2"/>
+                            <field name="acs_spo2_name"/>
+                            <!--<span><field name="acs_spo2_name"/></span>-->
+                        </div>
+                        <label for="rbs"/>
+                        <div class="o_row">
+                            <field name="rbs"/>
+                            <field name="acs_rbs_name"/>
+                            <!--<span><field name="acs_rbs_name"/></span>-->
+                        </div>
+                    </group>
+                </xpath>
+
+                <xpath expr="//field[@name='diseases_ids']" position="before">
+                    <field name="patient_tb" nolabel="1" attrs="{'invisible':[('diseases_ids_primary','=', False),('diseases_ids','=', False)]}" style="color: red;"/>
+                    <field name="diseases_ids_primary" string="Penyakit ICD-10 Primer" attrs="{'required':[('state','=','in_consultation'),('tipe_registrasi','not in',('mcu','igd')),('is_soap_doc','=',True)], 'invisible':[('is_soap_doc','=',False)]}"/>
+                    <field name="is_soap_doc" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//page[@name='diseases']" position="before">
+                    <page name="cppt" string="CPPT">
+                        <group name="header_cppt" string="CPPT">
+                            <field name="cppt_suster_dokter_ids" widget="section_and_note_one2many" nolabel="1">
+                                <tree create="0" limit="20">
+                                    <control>
+                                        <create name="add_line_control" string="Add a line"/>
+                                        <create name="add_section_control" string="Add a section"
+                                                context="{'default_display_type': 'line_section'}"/>
+                                    </control>
+                                    <field name="name" string="Title" widget="section_and_note_text" optional="show"/>
+                                    <field name="display_type" invisible="1"/>
+                                    <field name="title" invisible="1"/>
+                                    <field name="body"/>
+                                </tree>
+                                <from>
+                                    <field name="name" string="Title"/>
+                                </from>
+                            </field>
+                        </group>
+                        <group name="cppt_merge" string="Input CPPT" col="1">
+                            <group name="input_cppt_soap" string="Input CPPT SOAP" attrs="{'invisible': [('soap_sbar', '=', 'sbar')]}">
+                                <field name="soap_sbar" widget="radio"/>
+                                <field name="custom_user_id" />
+                                <field name="custom_role_id" widget="many2many_tags" />
+                                <field name="dokter_konsul_id" />
+                                <field name="subjective_cppt" />
+                                <label for="objective_cppt"/>
+                                <div class="o_row">
+                                    <field name="objective_cppt" />
+                                    <button name="action_view_default_vital_cppt" type="object" string="Isi TTV" class="btn btn-primary"/>
+                                </div>
+                                
+                                <field name="master_data_id" string="Nurse">
+                                    <tree editable="bottom">
+                                        <field name="category_id" />
+                                        <field name="sub_category_id" />
+                                        <field name="observation_display_name" />
+                                        <field name="observation_code" />
+                                    </tree>
+                                </field>
+                                <field name="gizi_id" groups="diet_nutrients.diet_users"/>
+                                <field name="diagnosa_pasien_ids">
+                                    <tree editable="bottom">
+                                        <field name="name" />
+                                        <field name="code" />
+                                        <field name="category" />
+                                        <field name="info" />
+                                    </tree>
+                                </field>
+                                <field name="interverensi" groups="acs_hms.group_hms_jr_doctor"/>
+                                <field name="monitoring" groups="acs_hms.group_hms_jr_doctor"/>
+                                <field name="evaluasi" groups="acs_hms.group_hms_jr_doctor"/>
+                                <field name="planning_cppt" />
+                            </group>
+
+                            <group name="input_cppt_sbar" string="Input CPPT SBAR" attrs="{'invisible': [('soap_sbar', '=', 'soap')]}">
+                                <field name="soap_sbar" widget="radio"/>
+                                <field name="custom_user_id" />
+                                <field name="custom_role_id" widget="many2many_tags" />
+                                <field name="situation" />
+                                <field name="background" />
+                                <field name="assessment" />
+                                <field name="recomendation" />
+                                <field name="instruction"/>
+                                <field name="review"/>
+                            </group>
+                            <button name="action_add_cppt" type="object" string="Confirm" class="btn btn-primary" width="100%"/>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherit_vital_view_hms_appointment_form" model="ir.ui.view">
+            <field name="name">inherit vital_view_hms_appointment_form</field>
+            <field name="model">hms.appointment</field>
+            <field name="inherit_id" ref="acs_hms_vital_examination.view_hms_appointment_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='vital_signs']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('tipe_registrasi', 'in', [False, 'rajal', 'igd', 'ranap', 'support'])]}</attribute>
+                </xpath>
+                <xpath expr="//page[@name='vital_signs']/following::page" position="attributes">
+                    <attribute name="attrs">{'invisible': [('tipe_registrasi', 'in', [False, 'rajal', 'igd', 'ranap', 'support'])]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_hms_appointment_form_inherit_acs_hms" model="ir.ui.view">
+            <field name="name">hms.appointment.view.form.inherit</field>
+            <field name="model">hms.appointment</field>
+            <field name="inherit_id" ref="acs_hms.view_hms_appointment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='create_invoice']" position="attributes">
+                    <attribute name="groups">acs_laboratory.group_hms_lab_user</attribute>
+                </xpath>
+                <!-- inherit State -->
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="statusbar_visible">draft,confirm,nurse,waiting,in_consultation,done</attribute>
+                </xpath>
+                <xpath expr="//button[@name='appointment_confirm']" position="after">
+                    <button name="btn_nurse_station" states="confirm" type="object" groups="acs_hms.group_hms_nurse" string="Nurse" class="oe_highlight"/>
+                </xpath>
+
+                <xpath expr="//button[@name='appointment_consultation']" position="attributes">
+                    <attribute name="groups">acs_hms.group_hms_doctor</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='appointment_waiting']" position="after">
+                    <button name="%(action_dua_acs_cancel_reason_wiz)d" string="Cancel" states="nurse" type="action"/>
+                </xpath>
+                <xpath expr="//button[@name='appointment_waiting']" position="attributes">
+                    <attribute name="states">nurse</attribute>
+                </xpath>
+                <xpath expr="//button[@name='print_report']" position="attributes">
+                    <attribute name="states">draft,nurse</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_appointment_send']" position="attributes">
+                    <attribute name="states">draft,nurse</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='info']//field[@name='diseases_ids']" position="after">
+                    <field name="diseases_code" attrs="{'invisible':[('is_soap_doc','=',False)]}" string="Penyakit"/>
+                </xpath>
+
+                <xpath expr="//page[@name='info']//field[@name='diseases_ids']" position="attributes">
+                    <attribute name="string">Penyakit ICD-10 Sekunder</attribute>
+                    <attribute name="attrs">{'required':[('state','=','in_consultation'),('tipe_registrasi','not in',('mcu','igd')),('is_soap_doc','=',True)],'invisible':[('is_soap_doc','=',False)]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Master Diagnosis -->
+        <record id="master_diagnosis_view_form" model="ir.ui.view">
+            <field name="name">master.diagnosis.view.form</field>
+            <field name="model">master.diagnosis</field>
+            <field name="arch" type="xml">
+                <form string="Master Diagnosis">
+                    <sheet>
+                        <group>
+                            <field name="encounter_diagnosis" />
+                            <field name="code" />
+                            <field name="keterangan" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="master_diagnosis_view_tree" model="ir.ui.view">
+            <field name="name">master.diagnosis.view.tree</field>
+            <field name="model">master.diagnosis</field>
+            <field name="arch" type="xml">
+                <tree string="Master Diagnosis">
+                    <field name="encounter_diagnosis" />
+                    <field name="code" />
+                    <field name="keterangan" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="master_diagnosis_action" model="ir.actions.act_window">
+            <field name="name">Master Diagnosis</field>
+            <field name="res_model">master.diagnosis</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <h1>Kosong</h1>
+            </field>
+        </record>
+
+        <!-- Master Status Observation  -->
+        <record id="master_status_observation_view_form" model="ir.ui.view">
+            <field name="name">master.status.observation.view.form</field>
+            <field name="model">master.status.observation</field>
+            <field name="arch" type="xml">
+                <form string="Master Appoinment">
+                    <sheet>
+                        <group string="Status Observation">
+                            <!-- <field name="master_status_observasi"/> -->
+                            <field name="lvl" />
+                            <field name="observation_status" />
+                            <field name="keterangan" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="master_status_observation_view_tree" model="ir.ui.view">
+            <field name="name">master.status.observation.view.tree</field>
+            <field name="model">master.status.observation</field>
+            <field name="arch" type="xml">
+                <tree string="Master Status Observation">
+                    <field name="lvl" />
+                    <field name="observation_status" />
+                    <field name="keterangan" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="master_status_observation_action" model="ir.actions.act_window">
+            <field name="name">Master Status Observation</field>
+            <field name="res_model">master.status.observation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <h1>
+                Kosong
+                </h1>
+            </field>
+        </record>
+
+        <!-- Master Data -->
+        <record id="master_data_view_form" model="ir.ui.view">
+            <field name="name">master.data.view.form</field>
+            <field name="model">master.data</field>
+            <field name="arch" type="xml">
+                <form string="Master Data">
+                    <sheet>
+                        <group>
+                            <field name="category_id" />
+                            <field name="sub_category_id" />
+                            <field name="observation_code" />
+                            <field name="observation_display_name" />
+                            <field name="keterangan" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="master_data_view_tree" model="ir.ui.view">
+            <field name="name">master.data.view.tree</field>
+            <field name="model">master.data</field>
+            <field name="arch" type="xml">
+                <tree string="Master Data">
+                    <field name="category_id" />
+                    <field name="sub_category_id" />
+                    <field name="observation_code" />
+                    <field name="observation_display_name" />
+                    <field name="keterangan" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="master_data_action" model="ir.actions.act_window">
+            <field name="name">Master Data</field>
+            <field name="res_model">master.data</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <h1>Kosong</h1>
+            </field>
+        </record>
+
+        <!-- Encounter Class -->
+        <record id="encounter_class_view_form" model="ir.ui.view">
+            <field name="name">encounter.class.view.form</field>
+            <field name="model">encounter.class</field>
+            <field name="arch" type="xml">
+                <form string="Encounter Class">
+                    <sheet>
+                        <group>
+                            <field name="encounter_class_code" />
+                            <field name="encounter_class_display" />
+                            <field name="keterangan" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="encounter_class_view_tree" model="ir.ui.view">
+            <field name="name">encounter.class.view.tree</field>
+            <field name="model">encounter.class</field>
+            <field name="arch" type="xml">
+                <tree string="Encounter Class">
+                    <field name="encounter_class_code" />
+                    <field name="encounter_class_display" />
+                    <field name="keterangan" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="encounter_class_action" model="ir.actions.act_window">
+            <field name="name">Mcs Encounter Class</field>
+            <field name="res_model">encounter.class</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <h1>Kosong</h1>
+            </field>
+        </record>
+
+
+        <record id="view_hms_appointment_search_inherit" model="ir.ui.view">
+            <field name="name">hms.appointment.search.inherit</field>
+            <field name="model">hms.appointment</field>
+            <field name="inherit_id" ref="acs_hms.view_hms_appointment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="no_rm" string="No. RM"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_is_hamil_tree_view" model="ir.ui.view">
+            <field name="name">inherit.is.hamil.tree.view</field>
+            <field name="model">hms.appointment</field>
+            <field name="inherit_id" ref="acs_hms.view_hms_appointment_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='patient_id']" position="after">
+                    <field name="is_hamil" optional="hide"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="master_tanda_vital_view_tree" model="ir.ui.view">
+            <field name="name">master.tanda.vital.view.tree</field>
+            <field name="model">master.tanda_vital</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name" required="1"/>
+                    <field name="satuan" required="1" options="{'no_create': True, 'no_create_edit':True}"/>
+                    <field name="deskripsi"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="master_tanda_vital_action" model="ir.actions.act_window">
+            <field name="name">Vital Sign Criteria</field>
+            <field name="res_model">master.tanda_vital</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <h1>
+                Kosong
+                </h1>
+            </field>
+        </record>
+
+        <record id="default_vital_view_form" model="ir.ui.view">
+            <field name="name">default.vital.view.form</field>
+            <field name="model">master.default_vital</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <form string="Template Tanda Vital Default New">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Nama"/>
+                            <h1>
+                                <field name="name" class="oe_inline" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="default"/>
+                                <field name="layanan_id"/>
+                            </group>
+                            <group>
+                                <field name="deskripsi"/>
+                            </group>
+                        </group>
+                        <group string="Tanda Vital">
+                            <field name="vital_ids" options="{'no_create': True, 'no_create_edit':True}" nolabel="1" widget="many2many_checkbox"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="default_vital_action" model="ir.actions.act_window">
+            <field name="name">Template Tanda Vital Default</field>
+            <field name="res_model">master.default_vital</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <h1>
+                Kosong
+                </h1>
+            </field>
+        </record>
+
+        <menuitem id="master_appointment_menu" name="Master Appointment" sequence="10" parent="acs_hms.menu_appointment_cofig"/>
+        <menuitem id="master_diagnosis_menu_item" name="Mcs Diagnosis" sequence="1" parent="master_appointment_menu" action="master_diagnosis_action"/>
+        <menuitem id="master_status_observation" name="Mcs Status Observation" sequence="2" parent="master_appointment_menu" action="master_status_observation_action"/>
+        <menuitem id="master_data_menu_item" name="Mcs Assessment Nurse" sequence="3" parent="master_appointment_menu" action="master_data_action"/>
+        <menuitem id="master_data_encounter_class" name="Mcs Encounter Class" sequence="5" parent="master_appointment_menu" action="encounter_class_action"/>
+        <menuitem id="master_tanda_vital" name="Mcs Tanda Vital" sequence="10" parent="master_appointment_menu" action="master_tanda_vital_action"/>
+        <menuitem id="master_default_vital" name="Mcs Template Default Vital" sequence="11" parent="master_appointment_menu" action="default_vital_action"/>
+
+    </data>
+</odoo>

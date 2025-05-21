@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mcs_hms_patient_mcs_hms_patient,mcs_hms_patient.mcs_hms_patient,model_hms_patient,base.group_user,1,1,1,1
+access_master_religion_patient,Master Data Religion Patient,model_master_religion_patient,base.group_user,1,1,1,1
+access_master_job_patient,Master Data job Patient,model_master_job_patient,base.group_user,1,1,1,1

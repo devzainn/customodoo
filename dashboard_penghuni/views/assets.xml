@@ -1,0 +1,8 @@
+<odoo>
+    <template id="assets_frontend" name="my_dashboard_assets" inherit_id="portal.portal_assets_frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/dashboard_penghuni/static/src/js/chart.js"></script>
+            <script type="text/javascript" src="/dashboard_penghuni/static/src/js/dashboard.js"></script>
+        </xpath>
+    </template>
+</odoo>

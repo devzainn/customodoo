@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="DashboardPenghuni">
+        <div class="o_dashboard_penghuni">
+            <div class="o_pie_chart"></div>
+            <div class="o_histogram"></div>
+            <div class="o_active_bills"></div>
+            <div class="o_paid_bills"></div>
+        </div>
+    </template>
+
+
+</odoo>

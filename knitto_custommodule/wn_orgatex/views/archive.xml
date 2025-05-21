@@ -1,0 +1,66 @@
+<odoo>
+
+    <record id="view_wn_orgatex_tree" model="ir.ui.view">
+        <field name="name">wn.orgatex.tree</field>
+        <field name="model">wn.orgatex</field>
+        <field name="arch" type="xml">
+            <tree create ="0">
+                <field name="no_kartu_proses" readonly="1"/>
+                <field name="preparation_number" readonly="1"/>
+                <field name="no_obat_kp" readonly="1"/>
+                <field name="kode_chemical" readonly="1"/>
+                <field name="nama" readonly="1"/>
+                <field name="jenis_chemical" readonly="1"/>
+                <field name="toleransi" readonly="1"/>
+                <field name="kebutuhan" readonly="1"/>
+
+                <field name="no_program" readonly="1"/>
+                <field name="proses_id" readonly="1"/>
+                <field name="batch_ref" readonly="1"/>
+                <field name="product_name" readonly="1"/>
+                <field name="qty_receipt" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_wn_orgatex_form" model="ir.ui.view">
+        <field name="name">wn.orgatex.form</field>
+        <field name="model">wn.orgatex</field>
+        <field name="arch" type="xml">
+            <form string="" create="false">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="no_program" readonly="1"/>
+                            <field name="proses_id" readonly="1"/>
+                            <field name="batch_ref" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="product_name" readonly="1"/>
+                            <field name="qty_receipt" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wn_orgatex_view" model="ir.actions.act_window">
+        <field name="name">WN Orgatex</field>
+        <field name="res_model">wn.orgatex</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_wn_orgatex"
+        name="WN ORGATEX API"
+        sequence="450"/>
+
+    <menuitem
+        id="submenu_wn_orgatex"
+        name="Wn Orgatex"
+        action="action_wn_orgatex_view"
+        parent="menu_wn_orgatex"
+        sequence="1"/>
+</odoo>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="surat_rekomdasi_dpjp">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <style>
+                        .judul{
+                        font-size:20px;
+                        }
+
+                        table.border-bottom {
+                        border-collapse: collapse;
+                        width: 100%;
+                        }
+
+                        table.border-bottom td {
+                        border-bottom: 3px solid;
+                        }
+
+                        .border-tb{
+                        border-bottom : 1px solid;
+                        border-top : 1px solid;
+                        padding : 5px;
+                        font-weight : bold;
+                        margin-top : 5px;
+                        }
+
+                        div.judul-header{
+                        font-size:12px;
+                        }
+                        div.judul-head{
+                        font-size:14px;
+                        text-align:center;
+                        font-weight: bold;
+                        }
+                        table.no-border{
+                        font-size:12px;
+                        width:100%;
+                        border-collapse: collapse;
+                        }
+                        .tulisan{
+                        font-family: Times New Roman;
+                        font-size:12pt;
+                        letter-spacing: 1px;
+                        }
+                        .isi{
+                        font-size:18px;
+                        }
+
+                    </style>
+                    <div class="tulisan">
+                      <table style="border-collapse: collapse; width: 100%;">
+                        <tr>
+                          <td class="no-spacing" style="width:20%; vertical-align: middle;">
+                            <img src="/mcs_hms_appointment/static/image/rskm.png" style="height:150px;"/>
+                          </td>
+                          <td class="no-spacing" style="width:80%; line-height: 1; vertical-align: middle;">
+
+                            <t t-if="doc.company_id.name == 'RS Karya Medika I Cikarang Barat'">
+                              <span style="font-size:24px;">RUMAH SAKIT</span> <br/>
+                              <span style="font-size:44px;"><b>KARYA MEDIKA I</b></span> <br/>
+                              <span t-field="doc.company_id.street"/> , <span t-field="doc.company_id.street2"/> - <span t-field="doc.company_id.city"/> <br/>
+                              Telp. <span t-field="doc.company_id.phone"/>
+                            </t>
+                            <t t-if="doc.company_id.name == 'RS Karya Medika II Tambun Selatan'">
+                              <span style="font-size:24px;">RUMAH SAKIT</span> <br/>
+                              <span style="font-size:44px;"><b>KARYA MEDIKA II</b></span> <br/>
+                              <span t-field="doc.company_id.street"/> , <span t-field="doc.company_id.street2"/> - <span t-field="doc.company_id.city"/> <br/>
+                              Telp. <span t-field="doc.company_id.phone"/>
+                            </t>
+                            <t t-if="doc.company_id.name == 'RS Karya Medika Bantar Gebang'">
+                              <span style="font-size:24px;">RUMAH SAKIT</span> <br/>
+                              <span style="font-size:44px;"><b>KARYA MEDIKA III</b></span> <br/>
+                              <span t-field="doc.company_id.street"/> , <span t-field="doc.company_id.street2"/> - <span t-field="doc.company_id.city"/> <br/>
+                              Telp. <span t-field="doc.company_id.phone"/>
+                            </t>
+                            <t t-else="">
+                              <span t-field="doc.company_id.name"/>
+                            </t>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2" style="border-top:2px solid; padding:5px;"/>
+                        </tr>
+                        <tr>
+                          <td colspan="2" style="border-bottom:1px solid;"/>
+                        </tr>
+                      </table>
+                      <br/>
+                      <span style="font-weight:bold; text-align:center;"><center>SURAT REKOMENDASI DPJP</center></span> <br/>
+                      <table style="border-collapse: collapse; width: 100%;">
+                        <tr>
+                          <td style="width:15%;">Rumah Sakit</td>
+                          <td style="width:5%;">:</td>
+                          <td style="width:25%;"><span t-field="doc.company_id.name"/></td>
+                          <td style="width:5%;"/>
+                          <td style="width:20%;">Nama Pasien</td>
+                          <td style="width:5% ;">:</td>
+                          <td style="width:25%;"><span t-field="doc.patient_id.name"/></td>
+                        </tr>
+                        <tr>
+                          <td style="width:15%;">Diagnosa</td>
+                          <td style="width:5%;">:</td>
+                          <td style="width:25%;"></td>
+                          <td style="width:10%;"/>
+                          <td style="width:15%;">No. Kartu BPJS</td>
+                          <td style="width:5% ;">:</td>
+                          <td style="width:25%;">
+                          <t t-set="a" t-value="0"/>
+                          <t t-if="doc.patient_id.insurance_ids">
+                            <t t-foreach="doc.patient_id.insurance_ids" t-as="bpjs">
+                              <t t-if="'BPJS' in bpjs.insurance_company_id.name">
+                                <t t-if="a == 0">
+                                  <span t-esc="bpjs.policy_number"/>
+                                  <t t-set="a" t-value="1"/>
+                                </t>
+                              </t>
+                            </t>
+                          </t>
+                          </td>
+                        </tr>
+                      </table>
+                      <br/>
+                      <span>1. Pasien masih perlu kontrol ke RS selama : <br/>
+                      <span style="padding-left: 20px; height: 5px; width: 5px;">&#x2610;</span> <span style="padding-left: 5px; padding-right: 40px;"> 1 (satu) Minggu </span> <br/>
+                      <span style="padding-left: 20px; height: 5px; width: 5px;">&#x2610;</span> <span style="padding-left: 5px; padding-right: 40px;"> 2 (dua) Minggu </span> <br/>
+                      <span style="padding-left: 20px; height: 5px; width: 5px;">&#x2610;</span> <span style="padding-left: 5px; padding-right: 40px;"> 3 (tiga) Minggu </span> <br/>
+                      <span style="padding-left: 20px; height: 5px; width: 5px;">&#x2610;</span> <span style="padding-left: 5px; padding-right: 40px;"> 1 (satu) Bulan </span> <br/>
+                      <br/>
+                      Tindakan selanjutnya : <br/> <br/>
+                      2. Pasien kronis sudah stabil, pengobatan selanjutnya dilakukan di fasilitas tingkat pertama dengan obat rujuk balik sebagai berikut : <br/>
+                      a. ............................ <br/>
+                      b. ............................ <br/>
+                      c. ............................ <br/>
+                      d. ............................ <br/>
+                      e. ............................ <br/> <br/>
+                      3. Pasien telah selesai pengobatan di RS selanjutnya pengobatan dilakukan di fasilitas kesehatan tingkat pertama. <br/>
+                      Ket : <br/>
+                      <span style="padding-left: 20px; font-size:30px;"> &#9900;</span> <span style="padding-left: 5px; padding-right: 40px;"> Lingkari angka 1,2, dan 3 </span> <br/>
+                      <span style="padding-left: 20px; font-size:30px;"> &#x2713;</span> <span style="padding-left: 5px; padding-right: 40px;"> Beri tanda pada kotak no 1 </span> <br/>
+                      Catatan : <br/>
+                      <table style="border-collapse: collapse; width: 100%;">
+                        <tr>
+                          <td style="width:5%;"/>
+                          <td style="width:95%;">Seumur hidup diberikan kepada pasien katastropik yang tidak bisa dilayani di FKTP seperti : <br/>
+                          HD, Hemofilia, Kanker, Thalasemia</td>
+                        </tr>
+                      </table>
+                      <table style="border-collapse: collapse; width: 100%;">
+                        <tr>
+                          <td style="width:65%;"/>
+                          <td style="width:35%;">
+                            <center>
+                            <t t-if="doc.company_id.name == 'RS Karya Medika I Cikarang Barat'">
+                            Bekasi,
+                            <t t-set="hari" t-value="{'Monday': 'Senin', 'Tuesday': 'Selasa','Wednesday': 'Rabu', 'Thursday': 'Kamis','Friday': 'Jumat', 'Saturday': 'Sabtu','Sunday': 'Minggu',}.get(context_timestamp(datetime.datetime.now()).strftime('%A'))"/>
+                            <t t-set="bulan" t-value="{'01': 'Januari', '02': 'Februari','03': 'Maret', '04': 'April','05': 'Mei', '06': 'Juni','07': 'Juli', '08': 'Agustus','09': 'September', '10': 'Oktober','11': 'November', '12': 'Desember',}.get(context_timestamp(datetime.datetime.now()).strftime('%m'))"/>
+                                <span t-esc="hari"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d ')"/>
+                                <span t-esc="bulan"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime(' %Y')"/>
+                            </t>
+                            <t t-if="doc.company_id.name == 'RS Karya Medika II Tambun Selatan'">
+                            Tambun,
+                            <t t-set="hari" t-value="{'Monday': 'Senin', 'Tuesday': 'Selasa','Wednesday': 'Rabu', 'Thursday': 'Kamis','Friday': 'Jumat', 'Saturday': 'Sabtu','Sunday': 'Minggu',}.get(context_timestamp(datetime.datetime.now()).strftime('%A'))"/>
+                            <t t-set="bulan" t-value="{'01': 'Januari', '02': 'Februari','03': 'Maret', '04': 'April','05': 'Mei', '06': 'Juni','07': 'Juli', '08': 'Agustus','09': 'September', '10': 'Oktober','11': 'November', '12': 'Desember',}.get(context_timestamp(datetime.datetime.now()).strftime('%m'))"/>
+                                <span t-esc="hari"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d ')"/>
+                                <span t-esc="bulan"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime(' %Y')"/>
+                            </t>
+                            <t t-if="doc.company_id.name == 'RS Karya Medika Bantar Gebang'">
+                            Bantar Gebang,
+                            <t t-set="hari" t-value="{'Monday': 'Senin', 'Tuesday': 'Selasa','Wednesday': 'Rabu', 'Thursday': 'Kamis','Friday': 'Jumat', 'Saturday': 'Sabtu','Sunday': 'Minggu',}.get(context_timestamp(datetime.datetime.now()).strftime('%A'))"/>
+                            <t t-set="bulan" t-value="{'01': 'Januari', '02': 'Februari','03': 'Maret', '04': 'April','05': 'Mei', '06': 'Juni','07': 'Juli', '08': 'Agustus','09': 'September', '10': 'Oktober','11': 'November', '12': 'Desember',}.get(context_timestamp(datetime.datetime.now()).strftime('%m'))"/>
+                                <span t-esc="hari"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d ')"/>
+                                <span t-esc="bulan"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime(' %Y')"/>
+                            </t>
+                            </center>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td/>
+                          <td>
+                            <t t-if="doc.physician_id and doc.physician_id.signature">
+                                <center>
+                                  <span t-field="doc.physician_id.signature" t-options="{'widget': 'image', 'class': 'img-rounded', 'style': 'max-width: 100%; max-height: 100px;'}"></span>
+                                </center>
+                            </t>
+                            <t t-else="">
+                                <br/><br/>
+                            </t>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td/>
+                          <td>
+                             <center>( <span t-field="doc.physician_id.name"/> )</center>
+                          </td>
+                        </tr>
+                      </table>
+                      </span>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="paperformat_surat_rekomdasi_dpjp" model="report.paperformat">
+            <field name="name">Surat Rekomendasi DPJP</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+    <record id="action_surat_rekomdasi_dpjp" model="ir.actions.report">
+        <field name="name">Surat Rekomendasi DPJP</field>
+        <field name="model">hms.appointment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mcs_hms_appointment.surat_rekomdasi_dpjp</field>
+        <field name="report_file">mcs_hms_appointment.surat_rekomdasi_dpjp</field>
+        <field name="print_report_name">'Surat Rekomendasi DPJP - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="acs_hms.model_hms_appointment"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="mcs_hms_appointment.paperformat_surat_rekomdasi_dpjp"/>
+    </record>
+
+
+
+
+</odoo>

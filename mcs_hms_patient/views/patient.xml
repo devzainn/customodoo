@@ -1,0 +1,156 @@
+<odoo>
+  <data>    
+    <record id="acs_hms_inherit_patient" model="ir.ui.view">
+      <field name="name">hms.patient.view.form.inherit</field>
+      <field name="model">hms.patient</field>
+      <field name="inherit_id" ref="acs_hms_base.view_patient_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="attributes">
+          <attribute name="placeholder">Nama Lengkap</attribute>
+          <attribute name="class"></attribute>
+        </xpath>
+        <xpath expr="//field[@name='state_id']" position="attributes">
+          <attribute name="placeholder">Provinsi</attribute>
+        </xpath>
+        <xpath expr="//field[@name='country_id']" position="attributes">
+          <attribute name="placeholder">Negara</attribute>
+        </xpath>
+        <xpath expr="//field[@name='zip']" position="attributes">
+          <attribute name="placeholder">Kode Pos</attribute>
+        </xpath>
+        <xpath expr="//field[@name='city']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='gov_code']" position="after">
+          <field name="ktp"/>
+          <field name="bebas_biaya"/>
+        </xpath>
+        <xpath expr="//field[@name='street2']" position="after">
+          <field name="rukun_tetangga" placeholder="RT" style="width:50%"/>
+          <field name="rukun_warga" placeholder="RW" style="width:50%"/>
+          <!-- <field name="kode_pos" placeholder="Kode Pos" /> -->
+        </xpath>
+
+        <xpath expr="//field[@name='state_id']" position="after">
+          <field name="kabupaten_id" placeholder="Kabupaten/Kota" style="width:50%"
+                        domain="[('state_id','=',state_id)]"/>
+          <field name="kecamatan_id" placeholder="Kecamatan" style="width:50%"
+                        domain="[('kabupaten_id','=',kabupaten_id)]"/>
+          <field name="kelurahan_id" placeholder="Kelurahan" style="width:50%"
+                        domain="[('kecamatan_id','=',kecamatan_id)]"/>
+        </xpath>
+
+        <xpath expr="//field[@name='mobile']" position="attributes">
+          <attribute name="required">1</attribute>
+        </xpath>
+
+        <xpath expr="//field[@name='gov_code']" position="after">
+            <field name="bahasa_yang_dikuasai_ids" widget="many2many_tags"/>
+        </xpath>
+
+        <xpath expr="//field[@name='code']" position="after">
+          <field name="code_print"/>
+        </xpath>
+
+        <xpath expr="//field[@name='code']" position="attributes">
+          <attribute name="string">No. Rekam Medis</attribute>
+        </xpath>
+
+        <xpath expr="//field[@name='nationality_id']" position="replace">
+          <field name="national_custom_mcs"/>
+        </xpath>
+        <xpath expr="//field[@name='education']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='occupation']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='religion']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='religion']" position="after">
+          <field name="religion_id"/>
+        </xpath>
+        <xpath expr="//field[@name='occupation']" position="after">
+          <field name="accupation_id"/>
+        </xpath>
+        <xpath expr="//field[@name='education']" position="after">
+          <field name="education_select"/>
+        </xpath>
+        <xpath expr="//page[@name='hospital_info']" position="after">
+          <page string="new_field">
+            <group string="patient" col="4">
+              <field name="identification_code" />
+              <field name="nomor_induk_kependudukan" />
+              <field name="passport_number" />
+              <field name="nama_ibu_kandung" />
+              <field name="tempat_lahir" />
+              <field name="tanggal_lahir" />
+              <field name="jenis_kelamin" />
+              <field name="agama" />
+              <field name="nomor_telepon" />
+              <field name="nomor_handphone" />
+              <field name="pendidikan" />
+              <field name="pekerjaan" />
+              <field name="status_pernikahan" />
+            </group>
+          </page>
+        </xpath>
+
+        <xpath expr="//field[@name='birthday']" position="attributes">
+          <attribute name="required">1</attribute>
+        </xpath>
+
+        <xpath expr="//field[@name='acs_tag_ids']" position="after">
+          <field name="is_child"/>
+        </xpath>
+
+      </field>
+    </record>
+
+    <record id="inherit_view_view_patient_tree" model="ir.ui.view">
+      <field name="name">inherit_view_view_patient_tree</field>
+      <field name="model">hms.patient</field>
+      <field name="inherit_id" ref="acs_hms_base.view_patient_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+          <field name="street" optional="show" string="Alamat"/>
+          <field name="birthday" optional="show" string="Tanggal Lahir"/>
+        </xpath>
+        <xpath expr="//field[@name='code']" position="attributes">
+          <attribute name="string">No. Rekam Medis</attribute>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_patient_search_inherit" model="ir.ui.view">
+        <field name="name">view_patient_search_inherit</field>
+        <field name="model">hms.patient</field>
+        <field name="inherit_id" ref="acs_hms_base.view_patient_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="birthday" string="Tanggal Lahir"/>
+            </xpath>
+            
+            <xpath expr="//field[@name='code']" position="attributes">
+              <attribute name="string">No. Rekam Medis</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <!-- <record id="invisbile_is_child_form" model="ir.ui.view">
+        <field name="name">invisbile is child</field>
+        <field name="model">hms.patient</field>
+        <field name="inherit_id" ref="acs_hms_paediatric.view_hms_patient_form_pediatric"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='is_child']" position="attributes">
+              <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record> -->
+
+  </data>
+</odoo>

@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="acs_hms.report_acs_appointment_document">
+
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="oe_structure"/>
+                <div>
+                    <table style="border-collapse: collapse; width: 100%; height: 21px;" border="0" width="100%">
+                        <tbody>
+                            <tr style="height: 13px;">
+                                <td style="width: 16.6667%; height: 21px;">Dicetak Oleh</td>
+                                <td style="width: 1.77936%; height: 21px;">:</td>
+                                <td style="width: 29.5967%; height: 21px;"><t t-esc="user.name"/></td>
+                                <td style="width: 13.1377%; height: 21px;">Tanggal</td>
+                                <td style="width: 1.95728%; height: 21px;">:</td>
+                                <td style="width: 18.2162%; height: 21px;"><span
+                                        t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></td>
+                                <td style="width: 6.40571%; height: 21px;">Jam</td>
+                                <td style="width: 1.77936%; height: 21px;">:</td>
+                                <td style="width: 16.6667%; height: 21px;"><span
+                                        t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M')"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 20px;">
+                    <table style="border-collapse: collapse; width: 100%;" border="0">
+                        <tbody>
+                            <tr>
+                                <td colspan="10"><t t-esc="doc.company_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10%;" colspan="10">Alamat: <t t-esc="doc.company_id.street"/> Telp
+                                    : <t
+                                            t-esc="doc.company_id.phone"/><br/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 20px;">
+                    <table style="border-collapse: collapse; width: 100%;" border="0">
+                        <tbody>
+                            <tr>
+                                <td style="border-bottom: 1px dashed black; text-align: center; width: 100%;"
+                                    colspan="10"><h2>SLIP PENDAFTARAN <span t-field="doc.department_id"/></h2></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;" colspan="2">No. Pasien</td>
+                                <td style="width: 2%; text-align: center" colspan="1">:</td>
+                                <td style="width: 40%;" colspan="2"><strong><span
+                                        t-field="doc.patient_id.code"/></strong></td>
+                                <td style="width: 8%;" colspan="1">&#160;</td>
+                                <td style="width: 30%;" colspan="4"><strong><span
+                                        t-field="doc.patient_id"/></strong></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%;" colspan="2">Kunj. Akhir</td>
+                                <td style="width: 2%; text-align: center" colspan="1">:</td>
+                                <td style="width: 40%;" colspan="2"></td>
+                                <td style="width: 30%;" colspan="2">Jns Kelamin</td>
+                                <td style="width: 2%;" colspan="1">:</td>
+                                <td style="width: 30%;" colspan="2"><strong><t t-if="doc.patient_id.gender == 'male'">
+                                    L
+                                </t>
+                                    <t t-else="">
+                                        P
+                                    </t></strong></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-bottom:20px">
+                    <table style="border-collapse: collapse; width: 100%;" border="0">
+                        <tbody>
+                            <tr>
+                                <td style="width: 20%;" colspan="2">No Registrasi</td>
+                                <td style="width: 2%; text-align: center" colspan="1">:</td>
+                                <td style="width: 20%;" colspan="2"><span t-field="doc.name"/></td>
+                                <td style="width: 25%;" colspan="2">
+                                    <t t-if="doc.patient_id.create_date.date() &lt; datetime.datetime.now().date()">
+                                        Pasien Lama
+                                    </t>
+                                    <t t-else="">
+                                        Pasien Baru
+                                    </t>
+                                </td>
+                                <td style="width: 32%;" colspan="3">
+                                    <table width="100%">
+                                        <tr>
+                                            <td>
+                                                Tgl. Lahir
+                                            </td>
+                                            <td>:
+                                            </td>
+                                            <td><span t-field="doc.patient_id.birthday"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Umur
+                                            </td>
+                                            <td>:
+                                            </td>
+                                            <td><span t-field="doc.age"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <!--<h2>SLIP PENDAFTARAN POLI PENYAKIT DALAM</h2>-->
+                    Unit : <span t-field="doc.department_id"/><br/>
+                    Dokter :<span t-field="doc.physician_id"/><br/>
+                    Dokter Pengganti:<br/>
+
+                    <div style="margin-bottom:20px">
+                        <table style="border-collapse: collapse; width: 100%;" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 15%;" colspan="1"> Asal Registrasi </td>
+                                    <td style="width: 2%; text-align: center" colspan="1">:</td>
+                                    <td style="width: 30%;" colspan="1"><span t-field="doc.tipe_registrasi"/></td>
+                                    <td style="width: 1-%;" colspan="1"> No Urut
+                                    </td>
+                                    <td style="width: 2%; text-align: center" colspan="1">:</td>
+                                    <td style="width: 10%;" colspan="1">
+                                        <t t-if="doc.queue_id">
+                                            <span t-field="doc.queue_id.token_day_number"/>
+                                        </t>
+                                    </td>
+                                    <td style="width: 10%;" colspan="1"> Waktu
+                                    </td>
+                                    <td style="width: 2%; text-align: center" colspan="1">:</td>
+                                    <td style="width: 10%;" colspan="1">
+                                        <t t-if="doc.queue_id">
+                                            <span t-field="doc.queue_id.estimation_date"/>
+                                        </t>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--Umur : <span t-field="doc.age"/><br/>-->
+                    <!--Dicetak Oleh : self.env.user <t t-esc="user.name"/> <br/>-->
+                    <!--Tanggal : <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/><br/>-->
+                    <!--Jam : <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M')"/><br/>-->
+                    <!--RS KARYA MEDIKA II TAMBUN : <t t-esc="company.name"/><br/>-->
+                    <!-- Ini Harusnya ada fungsi default yang manggi company address -->
+                    <!--Alamat : <t t-esc="company.street"/><br/>-->
+                    <!--Telp : <t t-esc="company.phone"/><br/>-->
+                    <!--Fax: <t t-esc="company.fax"/><br/>-->
+                    <!--Pasien Lama : -->
+                    <!--<t t-if="str(doc.patient_id.create_date) &lt; context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')">-->
+                    <!--    Pasien Lama-->
+                    <!--</t>-->
+                    <!--<t t-else="">-->
+                    <!--    Pasien Baru-->
+                    <!--</t>-->
+                    <br/>
+                    <!--JNS Kelamin: <t t-if="doc.patient_id.gender == 'male'">-->
+                    <!--    L-->
+                    <!--</t>-->
+                    <!--<t t-else="">-->
+                    <!--    P-->
+                    <!--</t><br/>-->
+                    <!--NO Pasien : <span t-field="doc.patient_id.code"/><br/>-->
+                    <!--TGL. Lahir : <span t-field="doc.patient_id.birthday"/><br/>-->
+                    <!--No Registrasi : <span t-field="doc.name"/><br/>-->
+                    <strong><u>PENANGGUNG JAWAB</u></strong>
+                    <br/>
+                    PT PERUSAHAAN : <span t-esc="doc.insurance_company_id.partner_id.name"/><br/>
+                    Nama : <span t-field="doc.insurance_company_id"/><br/>
+                    PENJAMIN : <span t-field="doc.patient_id"/><br/><br/><br/>
+                    <strong><u>Pemeriksaan / Tindakan</u></strong>
+                    <table style="border-collapse: collapse; width: 100%;" border="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 5%;"> No </th>
+                                <th class="text-center"> Nama Pemeriksaan </th>
+                                <th class="text-center" style="width: 15%;"> Biaya </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="i" t-value="1"/>
+                            <t t-set="total" t-value="0"/>
+                            <t t-foreach="doc.consumable_line_ids" t-as="consume">
+                                <tr>
+                                    <td class="text-center">
+                                        <span t-esc="i"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="consume.product_id.name"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="consume.subtotal"/>
+                                    </td>
+                                </tr>
+                                <t t-set="i" t-value="i+1"/>
+                                <t t-set="total" t-value="total + consume.subtotal"/>
+                            </t>
+                            <tr t-if="doc.product_id">
+                                <td class="text-center">
+                                    <span t-esc="i"/>
+                                </td>
+                                <td>
+                                    <span t-field="doc.product_id.name"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="doc.product_id.list_price"/>
+                                </td>
+
+                                <t t-set="total" t-value="total + doc.product_id.list_price"/>
+                            </tr>
+                            <tr>
+                                <th class="text-center">
+                                </th>
+                                <td class="text-right">
+                                    Jumlah
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="total"/>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

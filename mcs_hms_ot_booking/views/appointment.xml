@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherit_ot_appointment_form" model="ir.ui.view">
+            <field name="name">inherit_ot_appointment_form</field>
+            <field name="model">hms.appointment</field>
+            <field name="inherit_id" ref="acs_hms.view_hms_appointment_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet[1]/div" position="inside">
+                    <button class="oe_stat_button" type="object" name="action_view_ot">
+                        <field string="Pemesan OT" name="ot_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

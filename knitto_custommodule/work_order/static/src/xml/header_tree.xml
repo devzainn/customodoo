@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery="button.o_list_button_save" t-operation="before">
+            <t t-if="widget.model=='sale.order.line'">
+                <div class="custom_buttons">
+                    <button class="oe_button oe_highlight show_all_keterangan_btn" type="button">
+                        Tampilkan Semua Keterangan
+                    </button>
+                    <button class="oe_button oe_highlight show_all_note_btn" type="button">
+                        Tampilkan Semua Note
+                    </button>
+                </div>
+            </t>
+        </t>
+    </t>
+</templates>

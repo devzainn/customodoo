@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hms_appointment_cancel_groups" model="res.groups">
+            <field name="name">Appointment</field>
+            <field name="category_id" ref="acs_hms_base.module_category_hms"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+    </data>
+</odoo>

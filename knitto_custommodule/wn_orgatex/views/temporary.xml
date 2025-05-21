@@ -1,0 +1,52 @@
+<odoo>
+
+    <record id="view_temporary_extends_tree" model="ir.ui.view">
+        <field name="name">temporary.extends.tree</field>
+        <field name="model">temporary.extends</field>
+        <field name="arch" type="xml">
+            <tree create ="0">
+                <field name="proses_id"/>
+                <field name="batch_ref"/>
+                <field name="data_id"/>
+                <field name="qty_receipt"/>
+                <field name="qty_actual"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_temporary_extends_form" model="ir.ui.view">
+        <field name="name">temporary.extends.form</field>
+        <field name="model">temporary.extends</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="proses_id" readonly="1"/>
+                            <field name="batch_ref" readonly="1"/>
+                            <field name="data_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="qty_receipt" readonly="1"/>
+                            <field name="qty_actual"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_temporary_extends_view" model="ir.actions.act_window">
+        <field name="name">Temporary Extends</field>
+        <field name="res_model">temporary.extends</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="submenu_temporary_extends"
+        name="Temporary Extends"
+        action="action_temporary_extends_view"
+        parent="menu_wn_orgatex"
+        sequence="2"/>
+</odoo>

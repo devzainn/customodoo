@@ -1,0 +1,44 @@
+<odoo>
+
+    <record id="wn_preference_master_tree" model="ir.ui.view">
+        <field name="name">wn.preference.master.tree</field>
+        <field name="model">wn.preference.master</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="wn_preference_master_form" model="ir.ui.view">
+        <field name="name">wn.preference.masterform</field>
+        <field name="model">wn.preference.master</field>
+        <field name="arch" type="xml">
+            <form string="Preference Master" no_create="true">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wn_preference_master_view" model="ir.actions.act_window">
+        <field name="name">Preference Master</field>
+        <field name="res_model">wn.preference.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="submenu_wn_pref_master"
+        name="Preference Master"
+        action="action_wn_preference_master_view"
+        parent="menu_wn_orgatex"
+        sequence="2"/>
+</odoo>

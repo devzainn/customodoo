@@ -1,0 +1,61 @@
+<odoo>
+  <data>
+
+    <!-- Tree View -->
+    <record id="testing_challenge_tree_view_tree" model="ir.ui.view">
+      <field name="name">testing_challenge_tree.view.tree</field>
+      <field name="model">testing.challenge.tree</field>
+      <field name="arch" type="xml">
+        <tree string="Testing Challenge Tree">
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="testing_challenge_tree_view_form" model="ir.ui.view">
+      <field name="name">testing_challenge_tree.view.form</field>
+      <field name="model">testing.challenge.tree</field>
+      <field name="arch" type="xml">
+        <form string="Testing Challenge Tree Details">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="kebutuhan_uan"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Action -->
+    <record id="testing_challenge_tree_action" model="ir.actions.act_window">
+      <field name="name">Action Testing Challenge Tree</field>
+      <field name="res_model">testing.challenge.tree</field>
+      <field name="view_mode">tree</field>
+      <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('testing_challenge_tree_view_tree')})]"/>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem
+      id="testing_challenge_tree_root_menu"
+      name="Testing Challenge Tree"
+      sequence="10"/>
+
+    <menuitem
+        id="submenu_testing_challenge_tree"
+        name="Testing Challenge"
+        action="testing_challenge_tree_action"
+        parent="testing_challenge_tree_root_menu"
+        sequence="1"/>
+
+    <!-- Assets Backend -->
+    <template id="assets_backend" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <script type="text/javascript" src="/testing_challenge_tree/static/src/js/on_tree_click.js"></script>
+        <link rel="stylesheet" type="text/css" href="/testing_challenge_tree/static/src/css/custom_style.css"/>
+      </xpath>
+    </template>
+
+  </data>
+</odoo>

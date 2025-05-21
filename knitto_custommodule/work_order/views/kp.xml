@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="kartu_proses_form_inherit">
+        <field name="name">kartu.proses.form.inherit</field>
+        <field name="model">kartu.proses</field>
+        <field name="inherit_id" ref="tj_mkt_order.tj_kartu_proses_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//h1[@class='header_title']" position="after">
+                <group col="4">
+                    <group String="Order">
+                        <field name="so_id" readonly="1" />
+                        <field name="wo_date" readonly="1" />
+                        <field name="hanger_code" readonly="1" groups="base.group_no_one"/>
+                        <field name="tanggal_prod" />
+                        <field name="product_mkt_id" readonly="1" />
+                        <field name="delivery_date" invisible="1" />
+                        <field name="kode_customer" readonly="1" />
+                        <field name="jum_order" />
+                        <field name="colorway" attrs="{'invisible':[('type_wo', '=', 'dyeing')]}" />
+                        <field name="sales_type" readonly="1" />
+                        <field name="process_id" />
+                        <field name="nomor_urut" />
+                        <field name="status_terkini" readonly="1"/>
+                        <field name="so_note"/>
+                    </group>
+
+                    <group String="Design">
+                        <field name="motif_id" attrs="{'invisible':[('type_wo', '=', 'dyeing')]}" />
+                        <field name="design_no" attrs="{'invisible':[('type_wo', '=', 'dyeing')]}" />
+                        <field name="design_code" attrs="{'invisible':[('type_wo', '=', 'dyeing')]}" />
+                        <field name="nomor_batch" readonly="1" />
+                        <field name="batch_ref" />
+                        <field name="cw" readonly="1" />
+                        <field name="nomor_warna" readonly="1" />
+                        <field name="jum_screen" attrs="{'invisible':[('type_wo', '=', 'dyeing')]}" />
+                        <field name="dasar_kain" attrs="{'invisible':[('type_wo', '=', 'dyeing')]}" />
+                        <field name="proses" />
+                        <field name="mesin_id" />
+                    </group>
+
+
+
+                    <group String="Greige">
+                        <field name="greige_name" readonly="1" />
+                        <field name="kode_greige" readonly="1" />
+                        <field name="td_no" invisible="1" />
+                        <field name="fabric_code" readonly="1" />
+                        <field name="fabric_type" string="Fabric Type" readonly="1" />
+                        <field name="lebar_kain_finish" readonly="1" />
+                        <field name="gramasi_kain_finish" readonly="1" />
+                        <field name="range_gramasi_kain" readonly="1" />
+                        <field name="density_finish" readonly="1" />
+                    </group>
+
+                    <group String="Quantity Greige">
+                        <field name="qty_roll_kp" />
+                        <field name="qty_kg_kp" />
+                        <field name="qty_yds_kp" />
+                        <field name="qty_mtr_kp" />
+                    </group>
+                </group>
+                <group col="4">
+                    <group String="WIP">
+                        <field name="qty_process" />
+                        <field name="susut" />
+                        <field name="qty_request_greige" />
+                        <field name="ref_volume_mesin" />
+                        <field name="volume_mesin" />
+                        <field name="kp_asal_id" />
+                        <!-- <field name="is_re_produksi" invisible="1"/> -->
+                        <field name="type_re_produksi" invisible="1"/>
+                    </group>
+                    <group String="Inspect">
+                        <field name="kategori" readonly="1" />
+                        <field name="grading" readonly="1" />
+                        <field name="piece_length" readonly="1" />
+                        <field name="max_join_pcs" readonly="1" />
+                        <field name="packing" readonly="1" />
+                        <field name="acessories" readonly="1" />
+                        <field name="hang_tag" readonly="1" />
+                        <field name="type_wo" invisible="1" />
+                    </group>
+                </group>
+
+                <notebook>
+                    <page string="Detail">
+                        <button name="action_switch_batch" string="Switch Batch" type="object" class="oe_highlight" />
+                        <field name="detail_ids" attrs="{'readonly': [('state','not in','draft')]}">
+                            <tree string="Detail" create='0' delete='0' edit='0'>
+                                <field name="lot_id" />
+                                <field name="picking_id" />
+                                <field name="greige_id" />
+                                <field name="variasi_id" />
+                                <field name="no_urut" />
+                                <field name="qty_kg" sum="qty_kg"/>
+                                <field name="qty_meter" sum="qty_meter"/>
+                                <field name="qty_yard" sum="qty_yard"/>
+                            </tree>
+                            <form string="Detail">
+                                <sheet>
+                                    <group>
+                                        <group>
+                                            <field name="kp_asal_id" />
+                                            <field name="is_switch" />
+                                            <field name="lot_id" />
+                                            <field name="picking_id" />
+                                            <field name="greige_id" />
+                                            <field name="variasi_id" />
+                                            <field name="no_urut" />
+                                        </group>
+                                        <group>
+                                            <field name="qty_kg" />
+                                            <field name="qty_meter" />
+                                            <field name="qty_yard" />
+                                        </group>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="List Re Poduksi">
+                        <field name="re_produksi_ids" attrs="{'readonly': [('state','not in','draft')]}">
+                            <tree string="List Re Poduksi" create='0' delete='0' edit='0'>
+                                <field name="name" />
+                                <field name="tanggal_prod" />
+                                <field name="nomor_batch" readonly="1" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Flow Proses">
+                        <field name="proses_ids" attrs="{'readonly': [('state','in','done')]}">
+                            <tree string="Flow Proses" create='0' delete='0' edit='1' default_order="no_urut">
+                                <field name="name" />
+                                <field name="proses_master_id" />
+                                <field name="no_urut" />
+                                <field name="program_id" />
+                                <field name="mesin_id" />
+                                <field name="actual_mesin_id" />
+                                <field name="tanggal" />
+                                <field name="is_done" />
+                            </tree>
+                            <form string="Flow Proses">
+                                <sheet>
+                                    <group>
+                                        <group>
+                                            <field name="tanggal" />
+                                            <field name="name" />
+                                            <field name="proses_master_id" />
+                                            <field name="no_urut" />
+                                        </group>
+                                        <group>
+                                            <field name="mesin_id" />
+                                            <field name="is_done" />
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="Parameter">
+                                            <field name="parameter_ids">
+                                                <tree string="Parameter" create='0' delete='0'>
+                                                    <field name="name" />
+                                                    <field name="proses_id" />
+                                                    <field name="td_id" />
+                                                    <field name="no_urut" />
+                                                    <field name="parameter_id" />
+                                                    <field name="nilai" />
+                                                    <field name="uom" />
+                                                    <!-- <field name="amount" /> -->
+                                                    <!-- <field name="tanggal" /> -->
+                                                    <!-- <field name="description" /> -->
+                                                </tree>
+
+                                            </field>
+                                        </page>
+                                        <page string="Chemical">
+                                            <field name="chemical_ids">
+                                                <tree string="Chemical" create='0' delete='0'>
+                                                    <field name="name" />
+                                                    <field name="no_urut" />
+                                                    <field name="product_id" />
+                                                    <field name="qty" />
+                                                    <field name="uom_id" />
+                                                    <field name="qty_be" />
+                                                </tree>
+
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+
+                    <!-- <page string="Proses Parameter">
+                                <field name="parameter_ids" attrs="{'readonly': [('state','not in','draft')]}">
+                                    <tree string="Parameter" create='0' delete='0' edit='0'>
+                                        <field name="tanggal" />
+                                        <field name="name" />
+                                        <field name="proses_id"/>
+                                        <field name="parameter_id" />
+                                        <field name="amount" />
+                                        <field name="uom"/>
+                                    </tree>
+                                </field>
+                            </page> -->
+
+                    <!-- <page string="Chemical">
+                                <field name="chemical_ids" attrs="{'readonly': [('state','not in','draft')]}">
+                                    <tree string="Pemakaian Obat" create='0' delete='0' edit='0'>
+                                        <field name="tanggal" />
+                                        <field name="name" />
+                                        <field name="proses_id"/>
+                                        <field name="no_urut"/>
+                                        <field name="product_id"/>
+                                        <field name="amount" />
+                                        <field name="qty" />
+                                        <field name="qty_be"/>
+                                        <field name="uom_id"/>
+                                    </tree>
+                                </field>
+                            </page> -->
+
+                    <page string="Strikeoff Resep">
+                        <field name="kp_strikeoff_recipe_ids" attrs="{'readonly': [('state','in','done')]}" string="Strikeoff Recipe">
+                            <tree string="Strikeoff Recipe" editable="bottom">
+                                <!-- <field name="id_strike_detail" invisible="0" />
+                                <field name="strikeoff_recipe_id" invisible="0" />
+                                <field name="id_screen" string="Screen" />
+                                <field name="id_chm" string="Chemical" />
+                                <field name="conc" sum="Total Conc" />
+                                <field name="uom" />
+                                <field name="qty_aktual_soff" /> -->
+                                <field name="name" />
+                                <!-- <field name="id_strike_detail"/> -->
+                                <field name="warna_id" />
+                                <field name="code_screen" />
+                                <field name="screen_area" />
+                                <field name="no_urut" />
+                                <field name="id_chm" string="Chemical" options="{'no_create': True, 'no_open': True}" />
+                                <field name="conc" />
+                                <field name="uom" />
+                                <field name="qty_aktual_soff" />
+
+                            </tree>
+                        </field>
+                    </page>
+                    <!-- <page string="Strikeoff Resep Tikening">
+                        <field name="kp_strikeoff_recipe_tikening_ids" attrs="{'readonly': [('state','in','done')]}" string="Strikeoff Recipe Tikening">
+                            <tree string="Strikeoff Recipe Tikening" editable="bottom">
+                                <field name="product_id" />
+                                <field name="quantity" />
+                                <field name="uom" />
+
+                            </tree>
+                        </field>
+                    </page> -->
+
+
+                    <page string="Labdip Resep">
+                        <field name="kp_labdip_resep_ids" attrs="{'readonly': [('state','in','done')]}" string="Resep">
+                            <tree string="Resep" editable="bottom">
+                                <!-- <field name="labdip_resep_id" string="Labdip Resep" options="{'no_create': True,'no_create_edit':True,'no_open':True}" /> -->
+                                <field name="labdip_id" readonly="1" />
+                                <field name="labdip_warna_id" />
+                                <field name="category_resep_test" />
+                                <field name="product_id" />
+                                <field name="concentrate_1" sum="Total Concentrate 1" />
+                                <field name="category_uom" />
+                                <field name="sat_id" />
+                                <!-- <field name="ref_volume_mesin" /> -->
+                                <!-- <field name="volume_mesin" /> -->
+                                <field name="qty_aktual_labdip" />
+                            </tree>
+                        </field>
+                    </page>
+
+
+
+                </notebook>
+                <!-- </sheet> -->
+                <div class="oe_chatter">
+                    <!--                     <field name="message_follower_ids" widget="mail_followers"/>-->
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="planning_global_view_tree" model="ir.ui.view">
+        <field name="name">planning.global.view.tree</field>
+        <field name="model">planning.global</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="process_id" />
+                <field name="quantity" />
+                <field name="date" />
+                <field name="state" />
+                <field name="wo_id" invisible="1" />
+                <field name="user_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="planning_global_batch_view_tree" model="ir.ui.view">
+        <field name="name">planning.global.batch.view.tree</field>
+        <field name="model">planning.global.batch</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="CW" invisible="1" />
+                <field name="process_id" />
+                <field name="wo_line_id" string="CW" />
+                <field name="quantity" />
+                <field name="date" />
+                <field name="state" />
+                <field name="wo_id" string="WO" />
+                <field name="user_id" />
+                <field name="process" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="planning_global_kp_view_tree" model="ir.ui.view">
+        <field name="name">planning.global.kp.view.tree</field>
+        <field name="model">planning.global.kp</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="kp_id" />
+                <field name="process_id" />
+                <field name="quantity" />
+                <field name="date" />
+                <field name="state" />
+                <field name="wo_id" />
+                <field name="user_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="planning_global_action" model="ir.actions.act_window">
+        <field name="name">Planning Global</field>
+        <field name="res_model">planning.global</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="planning_global_batch_action" model="ir.actions.act_window">
+        <field name="name">Planning Global CW</field>
+        <field name="res_model">planning.global.batch</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="planning_global_kp_action" model="ir.actions.act_window">
+        <field name="name">Planning Global KP</field>
+        <field name="res_model">planning.global.kp</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="planning_global_menu" name="Planning Global" parent="sales_team.menu_sales" action="planning_global_action" sequence="12" groups="sales_team.group_sale_manager,sales_team.group_sale_salesman,account.group_account_manager,account.group_account_user" />
+    <menuitem id="planning_global_batch_menu" name="Planning Global CW" parent="sales_team.menu_sales" action="planning_global_batch_action" sequence="12" groups="sales_team.group_sale_manager,sales_team.group_sale_salesman,account.group_account_manager,account.group_account_user" />
+    <menuitem id="planning_global_kp_menu" name="Planning Global KP" parent="sales_team.menu_sales" action="planning_global_kp_action" sequence="12" groups="sales_team.group_sale_manager,sales_team.group_sale_salesman,account.group_account_manager,account.group_account_user" />
+
+</odoo>

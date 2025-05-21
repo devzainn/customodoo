@@ -1,0 +1,61 @@
+<templates>
+    <t t-name="BenchmarkDashboard">
+        <div class="o_web_example">
+            <div>
+                <div class="benchmark-dashboard-template"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="BenchmarkDashboardTemplate">
+        <div class="container-fluid">
+            <t t-esc="dashboard_data"/>
+            <div class="row">
+                <div class="col-md-4" style="margin-bottom: 20px;">
+                    <label for="perusahaanFilter">Filter by Company:</label>
+                    <select class="form-control" id="perusahaanFilter" multiple="multiple">
+                        <t t-foreach="perusahaan" t-as="comp">
+                            <option t-att-value="comp['id']">
+                                <t t-esc="comp['name']"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="date-start">Start Date:</label>
+                    <input type="date" id="date-start" class="form-control"/>
+                </div>
+                <div class="col-md-2">
+                    <label for="date-start">End Date:</label>
+                    <input type="date" id="end-start" class="form-control"/>
+                </div>
+                <div class="col-md-2" style="margin-top: 20px">
+                    <button type="button" id="apply_filter" class="btn btn-primary">Apply</button>
+                </div>
+            </div>
+            <div class="row">
+                <canvas id="neraca_chart" class="col-md-6"/>
+                <canvas id="profitabilitas_chart" class="col-md-6"/>
+                <canvas id="hpp_chart" class="col-md-6"/>
+                <canvas id="beban_usaha_chart" class="col-md-6"/>
+                <canvas id="beban_bunga_chart" class="col-md-6"/>
+                <canvas id="solvabilitas_chart" class="col-md-6"/>
+                <canvas id="likuiditas_chart" class="col-md-6"/>
+                <canvas id="ccc_chart" class="col-md-6"/>
+                <canvas id="roe_chart" class="col-md-6"/>
+            </div>
+            <script>
+                var neraca_data = <t t-raw="neraca_data"/>;
+                var profitabilitas_data = <t t-raw="profitabilitas_data"/>;
+                var hpp_data = <t t-raw="hpp_data"/>;
+                var beban_usaha_data = <t t-raw="beban_usaha_data"/>;
+                var beban_bunga_data = <t t-raw="beban_bunga_data"/>;
+                var solvabilitas_data = <t t-raw="solvabilitas_data"/>;
+                var likuiditas_data = <t t-raw="likuiditas_data"/>;
+                var ccc_data = <t t-raw="ccc_data"/>;
+                var roe_data = <t t-raw="roe_data"/>;
+            </script>
+            <script type="text/javascript" src="mcs_dashboard_e_subsidiary/static/src/js/benchmark_dashboard_chart.js"/>
+        </div>
+    </t>
+</templates>

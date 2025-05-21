@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record model="cppt.patient" id="tanggal_dan_waktu">
+            <field name="title">Tanggal dan Waktu</field>
+        </record>
+        <record model="cppt.patient" id="user">
+            <field name="title">User</field>
+        </record>
+        <record model="cppt.patient" id="subjective">
+            <field name="title">Subjective</field>
+        </record>
+        <record model="cppt.patient" id="objective">
+            <field name="title">Objective</field>
+        </record>
+        
+        <record model="cppt.patient" id="assessment_doctor">
+            <field name="title">Assessment Doctor</field>
+        </record>
+        <record model="cppt.patient" id="assessment_nurse">
+            <field name="title">Assessment Nurse</field>
+        </record>
+        <record model="cppt.patient" id="planning">
+            <field name="title">Planning</field>
+        </record>
+        <record model="cppt.patient" id="reviews">
+            <field name="title">Reviews</field>
+        </record>
+
+    </data>
+</odoo>

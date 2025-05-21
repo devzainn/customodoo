@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inherit_view_view_diseases_search" model="ir.ui.view">
+        <field name="name">inherit_view_view_diseases_search</field>
+        <field name="model">hms.diseases</field>
+        <field name="inherit_id" ref="acs_hms.view_diseases_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category']" position="before">
+                    <xpath expr="//field[@name='name']" position="move"/>
+                </xpath> 
+        </field>
+    </record>
+
+</odoo>

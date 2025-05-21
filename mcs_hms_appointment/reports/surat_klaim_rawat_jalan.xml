@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="formulir_klaim_rajal_rs">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <style>
+                        .judul{
+                        font-size:20px;
+                        }
+
+                        table.border-bottom {
+                        border-collapse: collapse;
+                        width: 100%;
+                        }
+
+                        table.border-bottom td {
+                        border-bottom: 3px solid;
+                        }
+
+                        .border-tb{
+                        border-bottom : 1px solid;
+                        border-top : 1px solid;
+                        padding : 5px;
+                        font-weight : bold;
+                        margin-top : 5px;
+                        }
+
+                        div.judul-header{
+                        font-size:12px;
+                        }
+                        div.judul-head{
+                        font-size:14px;
+                        text-align:center;
+                        font-weight: bold;
+                        }
+                        table.no-border{
+                        font-size:12px;
+                        width:100%;
+                        border-collapse: collapse;
+                        }
+                        .tulisan{
+                        font-family: Times New Roman;
+                        font-size:12pt;
+                        letter-spacing: 1px;
+                        }
+                        .isi{
+                        font-size:18px;
+                        }
+
+                    </style>
+                    <div class="tulisan">
+                      <div class="header">
+                      <table style="border-collapse: collapse; width: 100%;">
+                        <tr>
+                          <td class="no-spacing" style="width:20%; vertical-align: middle;">
+                            <img src="/mcs_hms_appointment/static/image/rskm.png" style="height:150px;"/>
+                          </td>
+                          <td class="no-spacing" style="width:80%; line-height: 1; vertical-align: middle;">
+
+                            <t t-if="doc.company_id.name == 'RS Karya Medika I Cikarang Barat'">
+                              <span style="font-size:24px;">RUMAH SAKIT</span> <br/>
+                              <span style="font-size:24px;"><b>KARYA MEDIKA I</b></span> <br/>
+                              <span t-field="doc.company_id.street"/> , <span t-field="doc.company_id.street2"/> - <span t-field="doc.company_id.city"/> <br/>
+                              Telp. <span t-field="doc.company_id.phone"/>
+                            </t>
+                            <t t-if="doc.company_id.name == 'RS Karya Medika II Tambun Selatan'">
+                              <span style="font-size:24px;">RUMAH SAKIT</span> <br/>
+                              <span style="font-size:24px;"><b>KARYA MEDIKA II</b></span> <br/>
+                              <span t-field="doc.company_id.street"/> , <span t-field="doc.company_id.street2"/> - <span t-field="doc.company_id.city"/> <br/>
+                              Telp. <span t-field="doc.company_id.phone"/>
+                            </t>
+                            <t t-if="doc.company_id.name == 'RS Karya Medika Bantar Gebang'">
+                              <span style="font-size:24px;">RUMAH SAKIT</span> <br/>
+                              <span style="font-size:24px;"><b>KARYA MEDIKA III</b></span> <br/>
+                              <span t-field="doc.company_id.street"/> , <span t-field="doc.company_id.street2"/> - <span t-field="doc.company_id.city"/> <br/>
+                              Telp. <span t-field="doc.company_id.phone"/>
+                            </t>
+                          </td>
+                        </tr>
+                      </table>
+                      </div>
+                      <br/>
+
+                      <span style=" margin:0;padding:0; line-height: 0; font-weight:bold; text-align:center;font-size:24px;"><center>FORMULIR KLAIM RAWAT JALAN KARYAWAN</center></span><br/>
+                      <span style=" line-height: 0;"><center>(Hanya Berlaku untuk satu kali kunjungan)</center></span> <br/> <br/>
+                      <span>(Diisi Oleh Karyawan)</span>
+                      <table style="border-collapse: collapse; width: 100%;">
+                        <tr>
+                          <td style="width:25%;">PERUSAHAAN</td>
+                          <td style="width:5%;">:</td>
+                          <td style="width:70%;"><span t-field="doc.patient_id.code_print"/></td>
+                        </tr>
+                        <tr>
+                          <td>Nama Karyawan</td>
+                          <td>:</td>
+                          <td><span t-field="doc.patient_id.name"/></td>
+                        </tr>
+                        <tr>
+                          <td>NIK / Bagian</td>
+                          <td>:</td>
+                          <td><span t-field="doc.patient_id.code_print"/></td>
+                        </tr>
+                        <tr>
+                          <td>Nama Pasien</td>
+                          <td>:</td>
+                          <td><span t-field="doc.patient_id.code_print"/></td>
+                        </tr>
+                        <tr>
+                          <td>Status Pasien</td>
+                          <td>:</td>
+                          <td>
+                            <span>1. Karyawan</span>
+                            <span style="padding-left: 50px;">2. Istri</span>
+                            <span style="padding-left: 50px;">3. Anak</span>
+                          </td>
+                        </tr>
+                      </table>
+                      <br/>
+                      <span>(Diisi oleh Dokter Pemeriksa) </span>
+                      <table style="border-collapse: collapse; width: 100%;">
+                        <tr>
+                          <td style="width:25%;">Anamnese</td>
+                          <td style="width:5%;">:</td>
+                          <td style="width:70%;"><span t-field="doc.patient_id.code_print"/></td>
+                        </tr>
+                        <tr>
+                          <td>Diagnosa</td>
+                          <td>:</td>
+                          <td>
+                            <br/>
+                            (untuk keperluan administrasi mohon diagnosa diisi dengan huruf cetak dan jelas).
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Terapi</td>
+                          <td>:</td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td>Anjuran</td>
+                          <td>:</td>
+                          <td> </td>
+                        </tr>
+                      </table>
+                      <table style="border-collapse: collapse; width: 100%;">
+                        <tr>
+                          <td style="width:60%;"/>
+                          <td style="width:40%;">
+                            <center>
+                            <t t-if="doc.company_id.name == 'RS Karya Medika I Cikarang Barat'">
+                            Bekasi,
+                            <t t-set="hari" t-value="{'Monday': 'Senin', 'Tuesday': 'Selasa','Wednesday': 'Rabu', 'Thursday': 'Kamis','Friday': 'Jumat', 'Saturday': 'Sabtu','Sunday': 'Minggu',}.get(context_timestamp(datetime.datetime.now()).strftime('%A'))"/>
+                            <t t-set="bulan" t-value="{'01': 'Januari', '02': 'Februari','03': 'Maret', '04': 'April','05': 'Mei', '06': 'Juni','07': 'Juli', '08': 'Agustus','09': 'September', '10': 'Oktober','11': 'November', '12': 'Desember',}.get(context_timestamp(datetime.datetime.now()).strftime('%m'))"/>
+                                <span t-esc="hari"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d ')"/>
+                                <span t-esc="bulan"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime(' %Y')"/>
+                            </t>
+                            <t t-if="doc.company_id.name == 'RS Karya Medika II Tambun Selatan'">
+                            Tambun,
+                            <t t-set="hari" t-value="{'Monday': 'Senin', 'Tuesday': 'Selasa','Wednesday': 'Rabu', 'Thursday': 'Kamis','Friday': 'Jumat', 'Saturday': 'Sabtu','Sunday': 'Minggu',}.get(context_timestamp(datetime.datetime.now()).strftime('%A'))"/>
+                            <t t-set="bulan" t-value="{'01': 'Januari', '02': 'Februari','03': 'Maret', '04': 'April','05': 'Mei', '06': 'Juni','07': 'Juli', '08': 'Agustus','09': 'September', '10': 'Oktober','11': 'November', '12': 'Desember',}.get(context_timestamp(datetime.datetime.now()).strftime('%m'))"/>
+                                <span t-esc="hari"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d ')"/>
+                                <span t-esc="bulan"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime(' %Y')"/>
+                            </t>
+                            <t t-if="doc.company_id.name == 'RS Karya Medika Bantar Gebang'">
+                            Bantar Gebang,
+                            <t t-set="hari" t-value="{'Monday': 'Senin', 'Tuesday': 'Selasa','Wednesday': 'Rabu', 'Thursday': 'Kamis','Friday': 'Jumat', 'Saturday': 'Sabtu','Sunday': 'Minggu',}.get(context_timestamp(datetime.datetime.now()).strftime('%A'))"/>
+                            <t t-set="bulan" t-value="{'01': 'Januari', '02': 'Februari','03': 'Maret', '04': 'April','05': 'Mei', '06': 'Juni','07': 'Juli', '08': 'Agustus','09': 'September', '10': 'Oktober','11': 'November', '12': 'Desember',}.get(context_timestamp(datetime.datetime.now()).strftime('%m'))"/>
+                                <span t-esc="hari"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d ')"/>
+                                <span t-esc="bulan"/>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime(' %Y')"/>
+                            </t>
+                            </center>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td/>
+                          <td>
+                            <center>
+                            <t t-if="doc.physician_id and doc.physician_id.signature">
+                                <center>
+                                  <span t-field="doc.physician_id.signature" t-options="{'widget': 'image', 'class': 'img-rounded', 'style': 'max-width: 100%; max-height: 100px;'}"></span>
+                                </center>
+                            </t>
+                            <t t-else="">
+                                <br/><br/>
+                            </t>
+                            ( <span t-field="doc.physician_id.name"/> )
+                            </center>
+                          </td>
+                        </tr>
+                      </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="paperformat_formulir_klaim_rajal_rs" model="report.paperformat">
+            <field name="name">Formulir Klaim Rajal Karyawan</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+    <record id="action_formulir_klaim_rajal_rs" model="ir.actions.report">
+        <field name="name">Formulir Klaim Rajal Karyawan</field>
+        <field name="model">hms.appointment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mcs_hms_appointment.formulir_klaim_rajal_rs</field>
+        <field name="report_file">mcs_hms_appointment.formulir_klaim_rajal_rs</field>
+        <field name="print_report_name">'Formulir Klaim Rajal Karyawan - %s' % (object.patient_id.name)</field>
+        <field name="binding_model_id" ref="acs_hms.model_hms_appointment"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="mcs_hms_appointment.paperformat_formulir_klaim_rajal_rs"/>
+    </record>
+
+
+
+
+</odoo>

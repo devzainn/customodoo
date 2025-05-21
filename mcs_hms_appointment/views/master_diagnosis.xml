@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+    
+        <record id="master_diagnosis_satu" model="master.diagnosis">
+            <field name="encounter_diagnosis">AD</field>
+            <field name="code">Admission diagnosis</field>
+            <field name="keterangan">Diagnosa masuk</field>
+        </record>
+
+        <record id="master_diagnosis_dua" model="master.diagnosis">
+            <field name="encounter_diagnosis">DD</field>
+            <field name="code">Discharge diagnosis</field>
+            <field name="keterangan">Diagnosa pulang</field>
+        </record>
+
+        <record id="master_diagnosis_tiga" model="master.diagnosis">
+            <field name="encounter_diagnosis">CC</field>
+            <field name="code">Chief complaint</field>
+            <field name="keterangan">Keluhan utama</field>
+        </record>
+
+        <record id="master_diagnosis_empat" model="master.diagnosis">
+            <field name="encounter_diagnosis">CM</field>
+            <field name="code">Comorbidity diagnosis</field>
+            <field name="keterangan">Diagnosa penyerta</field>
+        </record>
+
+        <record id="master_diagnosis_lima" model="master.diagnosis">
+            <field name="encounter_diagnosis">pre-op</field>
+            <field name="code">pre-op diagnosis</field>
+            <field name="keterangan">Diagnosa sebelum operasi</field>
+        </record>
+
+        <record id="master_diagnosis_enam" model="master.diagnosis">
+            <field name="encounter_diagnosis">post-op</field>
+            <field name="code">post-op diagnosis</field>
+            <field name="keterangan">Diagnosa sesudah operasi</field>
+        </record>
+
+        <record id="master_diagnosis_tujuh" model="master.diagnosis">
+            <field name="encounter_diagnosis">billing</field>
+            <field name="code">Billing</field>
+            <field name="keterangan">Diagnosa untuk Billing</field>
+        </record>
+
+    
+    </data>
+    
+
+</odoo>

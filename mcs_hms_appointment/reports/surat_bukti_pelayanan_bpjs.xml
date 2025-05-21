@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="surat_bukti_pelayanan_bpjs">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                  <style>
+                    .bpjs{
+                      font-size:20px;
+                      padding : 10px;
+                    }
+                  </style>
+
+                    <table style="border-collapse: collapse; width: 100%;" border="0">
+                      <tr>
+                        <td style="width:30%;">
+                          <img src="/mcs_hms_appointment/static/image/rskm.png" style="height:200px;"/>
+                        </td>
+                        <td style="width:70%; text-align:center; font-weight:bold; font-size:25px;">
+                          SURAT BUKTI PELAYANAN KESEHATAN <br/> BPJS - RAWAT JALAN
+                        </td>
+                      </tr>
+                    </table>
+                  <div class="bpjs">
+                   <table style="border-collapse: collapse; width: 100%;" border="0">
+                        <tr>
+                          <td style="width:30%;">Nama</td>
+                          <td style="width:5%;">:</td>
+                          <td style="width:65%;"><span t-field="doc.patient_id.name"/></td>
+                        </tr>
+                        <tr>
+                          <td>No. MR</td>
+                          <td>:</td>
+                          <td><span t-field="doc.patient_id.code_print"/></td>
+                        </tr>
+                        <tr>
+                          <td>Tgl. Berobat</td>
+                          <td>:</td>
+                          <td>
+                              <t t-set="hari" t-value="{'Monday': 'Senin', 'Tuesday': 'Selasa','Wednesday': 'Rabu', 'Thursday': 'Kamis','Friday': 'Jumat', 'Saturday': 'Sabtu','Sunday': 'Minggu',}.get(doc.schedule_date.strftime('%A'))"/>
+                              <t t-set="bulan" t-value="{'01': 'Januari', '02': 'Februari','03': 'Maret', '04': 'April','05': 'Mei', '06': 'Juni','07': 'Juli', '08': 'Agustus','09': 'September', '10': 'Oktober','11': 'November', '12': 'Desember',}.get(doc.schedule_date.strftime('%m'))"/>
+                                <span t-esc="hari"/>,
+                                <span t-esc="doc.schedule_date.strftime('%d ')"/>
+                                <span t-esc="bulan"/>
+                                <span t-esc="doc.schedule_date.strftime(' %Y')"/>
+                            </td>
+                        </tr>
+                        <tr>
+                          <td>Dokter Yang Merawat</td>
+                          <td>:</td>
+                          <td><span t-field="doc.physician_id.name"/></td>
+                        </tr>
+                        <tr>
+                          <td>Anamnesa</td>
+                          <td>:</td>
+                          <td><span t-field="doc.patient_id.code_print"/></td>
+                        </tr>
+                        <tr>
+                          <td>Diagnosa Utama</td>
+                          <td>:</td>
+                          <td><span t-field="doc.diseases_ids_primary.name"/></td>
+                        </tr>
+                        <tr>
+                          <td>Kode ICD - 10</td>
+                          <td>:</td>
+                          <td><span t-field="doc.diseases_ids_primary.code"/></td>
+                        </tr>
+                        <tr>
+                          <td>Diagnosa Sekunder</td>
+                          <td>:</td>
+                          <td>
+                            <t t-if="doc.diseases_ids">
+                              <t t-foreach="doc.diseases_ids" t-as="diagnosa">
+                                <span t-field="diagnosa.name"/>,
+                              </t>
+                            </t>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Kode ICD - 10</td>
+                          <td>:</td>
+                          <td>
+                            <t t-if="doc.diseases_ids">
+                              <t t-foreach="doc.diseases_ids" t-as="diagnosa">
+                                <span t-field="diagnosa.code"/>,
+                              </t>
+                            </t>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Penunjang Medis</td>
+                          <td>:</td>
+                          <td><span t-field="doc.patient_id.code_print"/></td>
+                        </tr>
+                        <tr>
+                          <td>Kode ICD - 9 - CM</td>
+                          <td>:</td>
+                          <td><span t-field="doc.patient_id.code_print"/></td>
+                        </tr>
+                      </table>
+                  </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <record id="paperformat_surat_bukti_pelayanan_bpjs" model="report.paperformat">
+            <field name="name">SURAT BUKTI PELAYANAN BPJS</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">270</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">40</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+    <record id="action_surat_bukti_pelayanan_bpjs" model="ir.actions.report">
+        <field name="name">SURAT BUKTI PELAYANAN BPJS</field>
+        <field name="model">hms.appointment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mcs_hms_appointment.surat_bukti_pelayanan_bpjs</field>
+        <field name="report_file">mcs_hms_appointment.surat_bukti_pelayanan_bpjs</field>
+        <field name="print_report_name">'SURAT BUKTI PELAYANAN BPJS - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_hms_appointment"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="mcs_hms_appointment.paperformat_surat_bukti_pelayanan_bpjs"/>
+    </record>
+
+</odoo>

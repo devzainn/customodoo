@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <!-- Add you code here -->
+        
+        <record id="pop_up_warning_form" model="ir.ui.view">
+            <field name="name">pop.up.warning.view.form</field>
+            <field name="model">pop.up.warning</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <!-- <sheet> -->
+                        <group>
+                            <h4>Td sudah dibentukan mlot, silahkan approve mlot terlebih dahulu.</h4>
+                        </group>
+                        <footer>
+                            <button name="set_open" string="Open" type="object" class="oe_highlight"/>
+                            <button string="Cancel" class="oe_link" special="cancel" />
+                        </footer>
+                    <!-- </sheet> -->
+                </form>
+            </field>
+        </record>
+
+        <record id="pop_up_warning_action" model="ir.actions.act_window">
+            <field name="name">Warning!</field>
+            <field name="res_model">pop.up.warning</field>
+            <field name="view_mode">form</field>            
+            <field name="view_type">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="work_order.pop_up_warning_form"/>
+        </record>
+
+    </data>
+</odoo>

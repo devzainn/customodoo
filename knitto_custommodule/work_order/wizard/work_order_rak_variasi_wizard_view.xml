@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        
+        <record id="sale_order_rak_variasi_wizard_form_2" model="ir.ui.view">
+            <field name="name">sale_order_rak_variasi_wizard_form_2</field>
+            <field name="model">sale.order.rak.variasi.wizard</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="location_id" class="oe_inline" />     
+                        </group>
+                        <group col="4">                       
+                            <field name="inventory_id" class="oe_inline" />
+                            <field name="date_opname" class="oe_inline" />
+                            <field name="date_start" class="oe_inline" />
+                            <field name="date_end" class="oe_inline" />                              
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button 
+                            name="action_calculate_summary_rak_variasi" 
+                            string="Calculate" 
+                            type="object" 
+                            class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
